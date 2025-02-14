@@ -73,8 +73,8 @@ if on:
     if np.all(canvas_result.image_data == 255):  # If the entire canvas is white (255 for grayscale)
             st.warning("Draw on canvas first!")
     else:
-        # Check the current shape of img_array
-        print("Shape of input image:", img_array.shape)
+       
+        st.write("The heatmap shows, which part of the image are important to me to decide what you drew. In other words, if I recognized your sketch as an apple red regions show the most 'applish' parts of apple sketch. Or the most 'pearisch' parts of a pear sketch in the other case.")
         # Convert the image to a TensorFlow tensor
         img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
         # Compute Grad-CAM heatmap
@@ -84,7 +84,7 @@ if on:
         # Plot the result with the heatmap overlaid
         plothtmp = src.plot_grad_cam(img, heatmap)
         st.image(plothtmp,width=192)
-        st.write('How I processed image:')
+        st.write('Why are broad regions highlighted, not just the sketch parts? To  answer this question, lets look how I process the image:')
         # Display the resized image
         st.image(img_resized, caption="28x28 Resized Image", width = 192)
         # Define a new model that outputs the activations of each layer
