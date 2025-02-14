@@ -93,6 +93,6 @@ if on:
         # Get the activations of all layers
         activations = activation_model.predict(img_array)
         # Visualize activations for each layer in Streamlit
-        st.write("Activations of each layer:")
+        st.write("I dont see a sketch. I see an array of numbers between 0 and 1 (grayscale pixels). My algorythm will apply a few steps (layers) to detect important patterns, which allows me to identify features that I am trained to recognize. Let me show you exactly how I process your sketch in each layer")
         src.visualise_activations(activations,activation_model)
 
