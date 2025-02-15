@@ -1,15 +1,15 @@
 import streamlit as st
 import tensorflow as tf
-from streamlit_drawable_canvas import st_canvas
 from tensorflow.keras.models import load_model
 from PIL import Image
 import numpy as np
 import matplotlib.pyplot as plt
 import src
+import page_layout
 
 st.title("The :green[pear]fect :red[apple]")
 # Load the model
-model = load_model('applepear.h5')
+model = load_model('applepear_dropout_invert_nolastlayer.h5')
 
 for layer in model.layers:
     print(layer.name)
@@ -20,19 +20,7 @@ col1, col2 = st.columns(2)
 
 # Left column - drawing canvas
 with col1:
-    st.header("Draw Here")
-    st.write("(apple or pear)")  
-    canvas_result = st_canvas(
-        fill_color="white",  # Set the background color
-        stroke_width=15,  # Set the stroke width
-        stroke_color="black",  # Set the stroke color
-        background_color="white",  # Background color
-        width=192,  # Width of the canvas
-        height=192,  # Height of the canvas
-        drawing_mode="freedraw",  # Drawing mode
-        key="canvas",  # Key to access the canvas state
-    )
-
+    canvas_result = page_layout.column_canvas()
 
 # Right column - display the resized image after clicking the button
 with col2:
@@ -73,12 +61,14 @@ if on:
     if np.all(canvas_result.image_data == 255):  # If the entire canvas is white (255 for grayscale)
             st.warning("Draw on canvas first!")
     else:
-       
+        st.write('Hello, I am convolutional neural network, trained to recognize apples and pears. Am I smart? I was trainde on 144722 apple images and 116904 pear images. How many samples would you need to see tobe able to distingush them? 10? 5? 1?')
+        st.write('apples and pears are my whole world, i know nothing else. therefore, if you draw anything else, i will tell you whether is more apple like (lets call it applish just for fun) or pear like (pearish).')
+        st.write('but what exactly does that applish and pearish mean? Lets look at your image through my eyes and reveal, what does it mean to me.')
         st.write("The heatmap shows, which part of the image are important to me to decide what you drew. In other words, if I recognized your sketch as an apple red regions show the most 'applish' parts of apple sketch. Or the most 'pearisch' parts of a pear sketch in the other case.")
         # Convert the image to a TensorFlow tensor
         img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
         # Compute Grad-CAM heatmap
-        heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
+        heatmap = src.grad_cam(model, img_tensor, layer_name='max_pooling2d_1')  # last conv layer
         # Convert the input image tensor to a numpy array for plotting
         img = img_tensor[0].numpy()
         # Plot the result with the heatmap overlaid

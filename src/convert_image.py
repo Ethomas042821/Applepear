@@ -10,7 +10,7 @@ def convert_image(img):
     img_array = np.array(img_resized)
 
     # Invert the image: subtract from 255
-    img_array = 255 - img_array
+    #img_array = 255 - img_array
 
     # Rescale the image for normalization
     img_array = img_array / 255.0

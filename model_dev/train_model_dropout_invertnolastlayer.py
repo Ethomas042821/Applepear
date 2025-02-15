@@ -18,9 +18,11 @@ print("Unique labels values:", np.unique(data['labels']))  # Unique values in la
 print("Labels example (first 5):", data['labels'][:5])  # Show first 5 labels
 
 # Step 2: Extract images and labels (i start with 5000 rows)
-images = data['images']
+not_inverted_images = data['images']
 labels = data['labels']
 # labels = data['labels'][:500000]
+
+images = 255 - not_inverted_images
 
 apple_images = images[labels == 0]  # Apple class (label 0)
 pear_images = images[labels == 1]   # Pear class (label 1)
@@ -52,7 +54,7 @@ for i in range(10):
 plt.tight_layout()
 
 # Save the plot as a JPG file
-fig.savefig('plot.jpg', format='jpg')
+fig.savefig('image_examples.jpg', format='jpg')
 
 # Show the plot in Streamlit
 st.pyplot(fig)
@@ -78,12 +80,12 @@ model.add(layers.MaxPooling2D((2, 2)))  # MaxPooling to reduce the spatial dimen
 # Add a second convolutional layer
 model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
-# Add a third convolutional layer
-model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 # Flatten the output of the convolutional layers
 model.add(layers.Flatten())
 # Add a dense (fully connected) layer
 model.add(layers.Dense(64, activation='relu'))
+# Add Dropout layer after the dense layer
+model.add(layers.Dropout(0.5))  # Dropout with 50% probability
 # Output layer 
 model.add(layers.Dense(2, activation='softmax'))  
 
@@ -100,7 +102,7 @@ history = model.fit(x_train, y_train, epochs=10, validation_data=(x_test, y_test
 print("model fitted")
 
 # Save the model to a file 
-model.save('applepear.h5')  
+model.save('applepear_dropout_invert_nolastlayer.h5')  
 print("model saved")
 
 # Plot training and validation accuracy
@@ -113,7 +115,7 @@ ax_acc.set_title('Training and Validation Accuracy')
 ax_acc.legend()
 
 # Save the accuracy plot as JPG
-fig_acc.savefig('accuracy_plot.jpg', format='jpg')
+fig_acc.savefig('accuracy_plot_dropout_invert_nolastlayer.jpg', format='jpg')
 
 # Plot training and validation loss
 fig_loss, ax_loss = plt.subplots()
@@ -125,7 +127,7 @@ ax_loss.set_title('Training and Validation Loss')
 ax_loss.legend()
 
 # Save the loss plot as JPG
-fig_loss.savefig('loss_plot.jpg', format='jpg')
+fig_loss.savefig('loss_plot_dropout_invert_nolastlayer.jpg', format='jpg')
 
 # Show both plots in Streamlit
 st.pyplot(fig_acc)
