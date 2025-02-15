@@ -7,7 +7,7 @@ def column_canvas():
 
     canvas_result = st_canvas(
         fill_color="white",  # Set the background color
-        stroke_width=15,  # Set the stroke width
+        stroke_width=13,  # Set the stroke width
         stroke_color="black",  # Set the stroke color
         background_color="white",  # Background color
         width=192,  # Width of the canvas

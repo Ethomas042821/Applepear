@@ -5,6 +5,7 @@ from PIL import Image
 def plot_grad_cam(img, heatmap):
     # Resize heatmap to match the image dimensions
     heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
+    heatmap = 1-heatmap
     
     # Convert heatmap to RGB (jet colormap)
     heatmap = np.uint8(255 * heatmap)  # Convert heatmap to range [0, 255]
