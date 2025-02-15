@@ -5,12 +5,6 @@ import src
 
 
 def column_prediction(model, canvas_result):
-    st.header("I think this is...")
-    if canvas_result.image_data is not None:
-        # Check if the image is not all white (empty canvas)
-        if np.all(canvas_result.image_data == 255):  # If the entire canvas is white (255 for grayscale)
-            st.warning("Cant wait to see your drawing!")
-        else:
             #Load image from canvas
             img = Image.fromarray(canvas_result.image_data.astype(np.uint8))
             #Prepare image for the model
@@ -34,7 +28,6 @@ def column_prediction(model, canvas_result):
             piechart = src.create_piechart(prediction, class_labels)
             # Display the pie chart
             st.pyplot(piechart)
-    else:
-        st.warning("Cant wait to see your drawing!")
-    return img_array, img_resized
+            
+            return img_array, img_resized
 

@@ -32,9 +32,12 @@ def grad_cam(model, img_tensor, layer_name):
     # Take the mean of the feature map across all channels
     heatmap = np.mean(heatmap, axis=-1)
     
+
     # Normalize the heatmap
     heatmap = np.maximum(heatmap, 0)
     heatmap /= np.max(heatmap)  # Normalize to [0, 1]
     heatmap = tf.squeeze(heatmap)
+
+    print(heatmap.numpy())
     
     return heatmap.numpy()

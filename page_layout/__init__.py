@@ -1,2 +1,3 @@
 from .column_canvas import column_canvas
 from .column_prediction import column_prediction
+from .bottom_activations import bottom_activations

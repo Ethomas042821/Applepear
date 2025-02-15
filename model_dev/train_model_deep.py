@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import matplotlib.pyplot as plt
 
 # Step 1: Load the .npz file
-data = np.load(r'C:\Users\kmoud\Documents\projekty\ApplePear\data\combined_applepear_dataset_2.npz')
+data = np.load(r'C:\Users\kmoud\Documents\projekty\ApplePear\data\combined_applepear_dataset.npz')
 
 # Inspect the content of the .npz file to check the keys and understand the structure
 print("Keys in the .npz file:", data.files)  # Check the keys (e.g., 'images', 'labels')
@@ -82,13 +82,13 @@ model.add(layers.Conv2D(64, (3, 3), activation='relu'))
 model.add(layers.MaxPooling2D((2, 2)))
 # Add a third convolutional layer
 model.add(layers.Conv2D(128, (3, 3), activation='relu'))
-model.add(layers.MaxPooling2D((2, 2)))
+#model.add(layers.MaxPooling2D((2, 2)))
 # Flatten the output of the convolutional layers
 model.add(layers.Flatten())
 # Add a dense (fully connected) layer
 model.add(layers.Dense(128, activation='relu'))
 # Add Dropout layer with 0.5 (50%) probability
-model.add(layers.Dropout(0.5))
+#model.add(layers.Dropout(0.5))
 # Output layer 
 model.add(layers.Dense(2, activation='softmax'))  
 

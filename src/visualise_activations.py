@@ -3,11 +3,7 @@ import matplotlib.pyplot as plt
 from config import settings
 
 
-# Function to visualize activations (feature maps)
-def visualise_activations(activations,model, num_columns=8):
-    # Get the layer names from the model
-    layer_names = [layer.name for layer in model.layers]
-
+def visualise_activations(activations, model, num_columns=8):
     # Get the layer names from the model, excluding the input layer (if any)
     layer_names = [layer.name for layer in model.layers if 'input' not in layer.name]
 
@@ -16,8 +12,19 @@ def visualise_activations(activations,model, num_columns=8):
 
     # Loop through the activations and layer names to display the results
     for i, (layer_name, layer_activation) in enumerate(zip(layer_names, activations)):
+        # Get the step and description for the current layer
+        if layer_name in settings.layer_info:
+            step = settings.layer_info[layer_name]["step"]
+            description = settings.layer_info[layer_name]["description"]
+        else:
+            step = f"Step {i+1}: {layer_name}"  # Default step if layer not in layer_info
+            description = "No description available for this layer."  # Default description if layer not in layer_info
+            
+        # Display the step (layer name with step)
+        st.subheader(step)  # Display step as a subheader
+        
         # Display the description for the current layer
-        st.write(settings.layer_descriptions.get(layer_name, "No description available for this layer."))
+        st.markdown(description)  # Display description as a Markdown block
 
         # Check the shape of the activation and handle accordingly
         if len(layer_activation.shape) == 4:  # Convolutional layer (batch_size, height, width, num_filters)

@@ -1,7 +1,4 @@
-remove the last layer as it looks at background
+zkontrolovat gradcam jestli kresli dobre.... furt divny
 
-zkontrolovat gradcam jestli kresli dobre
+zvazit jestli v convolucich nezakazat zmansovani......!!!!! look at example
 
-zkusit precijen lepsi architekturu
-
-pustit na novym aug datasetu
