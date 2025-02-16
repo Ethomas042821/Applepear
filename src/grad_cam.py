@@ -40,7 +40,9 @@ def grad_cam(model, img_tensor, layer_name):
 
         
         class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction
+        print(f"prediction h1gh class idx: {class_idx}")
         class_output = predictions[0][class_idx]  # Access the output corresponding to that class
+        print(f"prediction: {class_output}")
 
     # Compute the gradient of the class output w.r.t. the activations
     grads = tape.gradient(class_output, activations)
