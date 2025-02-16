@@ -2,6 +2,7 @@ import streamlit as st
 from tensorflow.keras.models import load_model
 import numpy as np
 import page_layout
+import tensorflow as tf
 
 st.title("The :green[pear]fect :red[apple]")
 
@@ -14,6 +15,8 @@ def load_keras_model():
 
 # Call the function to load the model
 model = load_keras_model()
+inputs = tf.keras.Input(shape=(28, 28, 1))
+outputs = model(inputs)
 
 #for layer in model.layers:
 #    print(layer.name)
