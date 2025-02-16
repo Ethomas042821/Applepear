@@ -5,10 +5,11 @@ from PIL import Image
 import streamlit as st
 
 def bottom_activations(model, img_array):
-    st.write("Hello! I'm a convolutional neural network, trained to recognize apples and pears. I’m pretty good at it, if I do say so myself. Am I smart? I’ve been trained on 578,888 apple sketches and 467,616 pear sketches. How many sketch examples would YOU need to see to tell apples and pears apart? 10? 5? 1?")
+    st.write("Hello! I'm a convolutional neural network, trained to recognize apples and pears. I’m pretty good at it, if I do say so myself.")
+    st.write(" Am I smart? I’ve been trained on 578,888 apple sketches and 467,616 pear sketches. How many sketch examples would YOU need to see to tell apples and pears apart? 10? 5? 1?")
     st.write('Apples and pears are pretty much all I know. So, if you draw anything else, I’ll tell you at least if it’s more apple-like (let’s call that "applish" just for fun) or more pear-like ("pearish").')
     st.write('But what exactly do "applish" and "pearish" mean? Let’s take a look at your image through my eyes and I’ll show you how I see it.')
-    st.write("The heatmap highlights the parts of the image that matter most to me when making my decision. If I recognize your drawing as an apple, the red areas show the most 'applish' parts of the apple sketch. If I claim it's a pear, the red areas highlight the most 'pearish' parts.")
+    st.write("The heatmap highlights the parts of the image that matter most to me when making my decision. If I recognize your drawing as an apple, the bright areas show the most 'applish' parts of the picture. If I claim it's a pear, the bright areas highlight the most 'pearish' parts.")
     
     # Convert the image to a TensorFlow tensor
     img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)

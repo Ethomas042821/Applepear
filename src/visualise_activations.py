@@ -42,7 +42,7 @@ def visualise_activations(activations, model, num_columns=8):
 
             for j in range(num_filters):
                 ax = axes[j]
-                ax.imshow(layer_activation[0, :, :, j], cmap='viridis')  # Display one filter's feature map
+                ax.imshow(layer_activation[0, :, :, j], cmap='pink')  # Display one filter's feature map
                 ax.axis('off')  # Turn off axes
 
             # Display the plot in Streamlit
@@ -51,6 +51,6 @@ def visualise_activations(activations, model, num_columns=8):
         elif len(layer_activation.shape) == 2:  # Flatten or Dense layer (batch_size, num_units)
             # Visualize 2D activations (often used for fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
-            ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='viridis', aspect='auto')
+            ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='pink', aspect='auto')
             ax.axis('off')  # Turn off axes
             st.pyplot(fig)

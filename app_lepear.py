@@ -9,7 +9,7 @@ st.title("The :green[pear]fect :red[apple]")
 @st.cache_resource
 def load_keras_model():
     # Load the Keras model
-    model = load_model('applepear_deep_2.h5')
+    model = load_model('applepear_deep.h5')
     return model
 
 # Call the function to load the model
