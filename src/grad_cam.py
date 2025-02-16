@@ -4,8 +4,8 @@ import numpy as np
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
 
-    #inputs = tf.keras.Input(shape=(1,28, 28, 1))
-    #outputs = model(inputs)
+    inputs = tf.keras.Input(shape=(28, 28, 1))
+    outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
     # Ensure the model's last convolutional layer is passed
     grad_model = tf.keras.models.Model(
