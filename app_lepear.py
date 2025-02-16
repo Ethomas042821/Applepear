@@ -7,7 +7,7 @@ import tensorflow as tf
 st.title("The :green[pear]fect :red[apple]")
 
 # Define a function to load the model and apply caching
-#@st.cache_resource
+@st.cache_resource
 def load_keras_model():
     # Load the Keras model
     model = load_model('applepear_deep.h5')
