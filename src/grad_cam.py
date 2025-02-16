@@ -8,7 +8,8 @@ def grad_cam(model, img_tensor, layer_name):
     # Create a model that gives us both the activations and predictions
     # Ensure the model's last convolutional layer is passed
     grad_model = tf.keras.models.Model(
-        inputs=[model.inputs],
+        #inputs=[model.inputs],
+        inputs=[model.get_layer(index=0).input],
         outputs=[model.get_layer(layer_name).output, model.output]
     )
     
