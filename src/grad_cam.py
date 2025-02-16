@@ -30,36 +30,36 @@ def grad_cam(model, img_tensor, layer_name):
         tape.watch(img_tensor)  # Ensure the input image tensor is being watched
         
         # Get the activations and predictions from the model
-        activations, predictions = grad_model(img_tensor)
+        st.session_state.activations, predictions = grad_model(img_tensor)
         
         # Debug: Print shape of predictions and activations
         print(f"Predictions shape: {predictions.shape}")
-        print(f"Activations shape: {activations[0].shape}")
+        print(f"Activations shape: {st.session_state.activations[0].shape}")
 
-        print(f"Activations1: {activations[0]}")
+        print(f"Activations1: {st.session_state.activations[0]}")
 
         
         class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction
         print(f"prediction h1gh class idx: {class_idx}")
-        class_output = predictions[0][class_idx]  # Access the output corresponding to that class
-        print(f"prediction: {class_output}")
+        st.session_state.class_output = predictions[0][class_idx]  # Access the output corresponding to that class
+        print(f"prediction: {st.session_state.class_output}")
 
     # Compute the gradient of the class output w.r.t. the activations
-    st.session_state.grads = tape.gradient(class_output, activations)
+    grads = tape.gradient(st.session_state.class_output, st.session_state.activations)
     
     # Debug: Check if grads is None
     #if grads is None:
     #    raise ValueError("Gradients are None. Ensure correct class index and layer output.")
     
     # Debug: Print gradient shape
-    print(f"Grads shape: {st.session_state.grads.shape}")
+    print(f"Grads shape: {grads.shape}")
     
     # Compute the pooled gradients
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))  # Reduce over height and width
     pooled_grads = pooled_grads / tf.norm(pooled_grads)  # Normalize the pooled gradients in order to better see their impact
     
     # Apply the gradients to the activations
-    heatmap = activations[0].numpy()
+    heatmap = st.session_state.activations[0].numpy()
     for i in range(heatmap.shape[-1]):
         heatmap[..., i] *= pooled_grads[i]
     
