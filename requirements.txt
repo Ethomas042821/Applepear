@@ -2,5 +2,5 @@ numpy
 pillow
 matplotlib
 opencv-python-headless
-tensorflow
+tensorflow==2.10.0 
 streamlit-drawable-canvas

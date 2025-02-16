@@ -3,7 +3,6 @@ import numpy as np
 
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
-
     inputs = tf.keras.Input(shape=(28, 28, 1))
     outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
