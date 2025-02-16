@@ -21,9 +21,9 @@ def bottom_activations(model, img_array):
     img = img_tensor[0].numpy()
 
     # Plot the result with the heatmap overlaid
-    plothtmp = src.plot_grad_cam(img, heatmap)
-    st.image(plothtmp,width=192)
-    st.write('Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:')
+    #plothtmp = src.plot_grad_cam(img, heatmap)
+    #st.image(plothtmp,width=192)
+    #st.write('Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:')
     
     # Define a new model that outputs the activations of each layer
     layer_outputs = [layer.output for layer in model.layers]
