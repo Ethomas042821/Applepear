@@ -1,5 +1,6 @@
 import tensorflow as tf
 import numpy as np
+import streamlit as st
 
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
@@ -9,9 +10,9 @@ def grad_cam(model, img_tensor, layer_name):
     # Ensure the model's last convolutional layer is passed
     grad_model = tf.keras.models.Model(
         #inputs=[model.inputs],
-        inputs=[model.get_layer(index=0).input],
+        inputs=[st.session_state.model.get_layer(index=0).input],
         #outputs=[model.get_layer(layer_name).output, model.layers[-1].output]
-        outputs=[model.layers[-4].output, model.layers[-1].output]
+        outputs=[st.session_state.model.layers[-4].output, st.session_state.model.layers[-1].output]
     )
     
     with tf.GradientTape() as tape:
