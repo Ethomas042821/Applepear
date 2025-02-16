@@ -10,8 +10,8 @@ def grad_cam(model, img_tensor, layer_name):
         tf.compat.v1.enable_eager_execution()
 
     # Make sure the layers are trainable
-    # for layer in model.layers:
-    #     layer.trainable = True
+    for layer in st.session_state.model.layers:
+         layer.trainable = True
 
 
     #inputs = tf.keras.Input(shape=(28, 28, 1))
