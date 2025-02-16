@@ -15,7 +15,7 @@ def bottom_activations(model, img_array):
     img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
 
     # Compute Grad-CAM heatmap
-    heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
+    #heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
 
     # Convert the input image tensor to a numpy array for plotting
     img = img_tensor[0].numpy()

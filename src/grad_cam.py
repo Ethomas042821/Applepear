@@ -25,7 +25,8 @@ def grad_cam(model, img_tensor, layer_name):
         print(f"Predictions shape: {predictions.shape}")
         print(f"Activations shape: {activations[0].shape}")
 
-        print(f"Activations: {activations[0]}")
+        print(f"Activations1: {activations[0]}")
+
         
         class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction
         class_output = predictions[0][class_idx]  # Access the output corresponding to that class
