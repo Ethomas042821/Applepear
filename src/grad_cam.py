@@ -7,12 +7,23 @@ def grad_cam(model, img_tensor, layer_name):
     #inputs = tf.keras.Input(shape=(28, 28, 1))
     #outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
-    # Ensure the model's last convolutional layer is passed
+    conv_layers = [layer.output for layer in st.session_state.model.layers if isinstance(layer, tf.keras.layers.Conv2D)]
+
+    # Get the output of the last convolutional layer
+    last_conv_layer_output = conv_layers[-1] if conv_layers else None
+
+    # Get the output of the final layer (output layer)
+    output_layer_output = st.session_state.model.layers[-1].output
+
+    # Combine the outputs into a list
+    
+
     grad_model = tf.keras.models.Model(
         #inputs=[model.inputs],
         inputs=[st.session_state.model.get_layer(index=0).input],
         #outputs=[model.get_layer(layer_name).output, model.output]
-        outputs=[st.session_state.model.layers[-4].output, st.session_state.model.layers[-1].output]
+        #outputs=[st.session_state.model.layers[-4].output, st.session_state.model.layers[-1].output]
+        outputs = [last_conv_layer_output, output_layer_output]
     )
     
     with tf.GradientTape() as tape:
