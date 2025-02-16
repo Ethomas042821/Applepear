@@ -10,7 +10,8 @@ def grad_cam(model, img_tensor, layer_name):
     grad_model = tf.keras.models.Model(
         #inputs=[model.inputs],
         inputs=[model.get_layer(index=0).input],
-        outputs=[model.get_layer(layer_name).output, model.layers[-1].output]
+        #outputs=[model.get_layer(layer_name).output, model.layers[-1].output]
+        outputs=[model.layers[-3].output, model.layers[-1].output]
     )
     
     with tf.GradientTape() as tape:
