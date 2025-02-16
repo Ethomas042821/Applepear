@@ -45,14 +45,14 @@ def grad_cam(model, img_tensor, layer_name):
         print(f"prediction: {class_output}")
 
     # Compute the gradient of the class output w.r.t. the activations
-    grads = tape.gradient(class_output, activations)
+    st.session_state.grads = tape.gradient(class_output, activations)
     
     # Debug: Check if grads is None
     #if grads is None:
     #    raise ValueError("Gradients are None. Ensure correct class index and layer output.")
     
     # Debug: Print gradient shape
-    print(f"Grads shape: {grads.shape}")
+    print(f"Grads shape: {st.session_state.grads.shape}")
     
     # Compute the pooled gradients
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))  # Reduce over height and width
