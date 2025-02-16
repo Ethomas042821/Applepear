@@ -4,22 +4,34 @@ import numpy as np
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
     # Create a model that gives us both the activations and predictions
+    # Ensure the model's last convolutional layer is passed
     grad_model = tf.keras.models.Model(
         inputs=[model.inputs],
         outputs=[model.get_layer(layer_name).output, model.output]
     )
     
     with tf.GradientTape() as tape:
+        tape.watch(img_tensor)  # Ensure the input image tensor is being watched
+        
         # Get the activations and predictions from the model
         activations, predictions = grad_model(img_tensor)
         
-        # Ensure predictions are in the right shape and get the predicted class index
-        print(f"Shape of predictions: {predictions.shape}")
-        class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction (apple/pear)
+        # Debug: Print shape of predictions and activations
+        print(f"Predictions shape: {predictions.shape}")
+        print(f"Activations shape: {activations[0].shape}")
+        
+        class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction
         class_output = predictions[0][class_idx]  # Access the output corresponding to that class
-    
+
     # Compute the gradient of the class output w.r.t. the activations
     grads = tape.gradient(class_output, activations)
+    
+    # Debug: Check if grads is None
+    if grads is None:
+        raise ValueError("Gradients are None. Ensure correct class index and layer output.")
+    
+    # Debug: Print gradient shape
+    print(f"Grads shape: {grads.shape}")
     
     # Compute the pooled gradients
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))  # Reduce over height and width
@@ -38,6 +50,6 @@ def grad_cam(model, img_tensor, layer_name):
     heatmap /= np.max(heatmap)  # Normalize to [0, 1]
     heatmap = tf.squeeze(heatmap)
 
-    print(heatmap.numpy())
+    #print(heatmap.numpy())
     
     return heatmap.numpy()
