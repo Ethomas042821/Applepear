@@ -13,8 +13,16 @@ def load_keras_model():
     model = load_model('applepear_deep.h5')
     return model
 
+# Check if the model is already in session state
+if 'model' not in st.session_state:
+    # If not, load the model and store it in session state
+    st.session_state.model = model = load_keras_model()
+
+# Access the model from session state
+model = st.session_state.model
+
 # Call the function to load the model
-model = load_keras_model()
+
 
 #for layer in model.layers:
 #    print(layer.name)
