@@ -11,7 +11,7 @@ def grad_cam(model, img_tensor, layer_name):
     grad_model = tf.keras.models.Model(
         #inputs=[model.inputs],
         inputs=[st.session_state.model.get_layer(index=0).input],
-        #outputs=[model.get_layer(layer_name).output, model.layers[-1].output]
+        #outputs=[model.get_layer(layer_name).output, model.output]
         outputs=[st.session_state.model.layers[-4].output, st.session_state.model.layers[-1].output]
     )
     
@@ -24,6 +24,8 @@ def grad_cam(model, img_tensor, layer_name):
         # Debug: Print shape of predictions and activations
         print(f"Predictions shape: {predictions.shape}")
         print(f"Activations shape: {activations[0].shape}")
+
+        print(f"Activations: {activations[0]}")
         
         class_idx = np.argmax(predictions[0])  # Get the class index of the highest prediction
         class_output = predictions[0][class_idx]  # Access the output corresponding to that class
