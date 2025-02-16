@@ -1,5 +1,5 @@
 numpy
-tensorflow
 pil
 matplotlib
 cv2
+tensorflow
