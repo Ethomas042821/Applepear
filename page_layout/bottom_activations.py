@@ -26,8 +26,8 @@ def bottom_activations(model, img_array):
     #st.write('Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:')
     
     # Define a new model that outputs the activations of each layer
-    layer_outputs = [layer.output for layer in model.layers]
-    activation_model = tf.keras.models.Model(inputs=model.input, outputs=layer_outputs)
+    layer_outputs = [layer.output for layer in st.session_state.model.layers]
+    activation_model = tf.keras.models.Model(st.session_state.model.get_layer(index=0).input, outputs=layer_outputs)
 
     # Get the activations of all layers
     activations = activation_model.predict(img_array)
