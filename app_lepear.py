@@ -6,7 +6,7 @@ import page_layout
 st.title("The :green[pear]fect :red[apple]")
 
 # Define a function to load the model and apply caching
-@st.cache_resource
+#@st.cache_resource
 def load_keras_model():
     # Load the Keras model
     model = load_model('applepear_deep.h5')
@@ -15,8 +15,8 @@ def load_keras_model():
 # Call the function to load the model
 model = load_keras_model()
 
-for layer in model.layers:
-    print(layer.name)
+#for layer in model.layers:
+#    print(layer.name)
 
 st.write("What makes an apple an apple and a pear a pear? I believe it's based on 240,514 parameters. Draw a picture and prove me wrong.")
 
