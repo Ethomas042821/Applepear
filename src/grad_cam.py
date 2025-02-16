@@ -4,6 +4,16 @@ import streamlit as st
 
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
+
+    # Ensure eager execution is enabled
+    if not tf.executing_eagerly():
+        tf.compat.v1.enable_eager_execution()
+
+    # Make sure the layers are trainable
+    # for layer in model.layers:
+    #     layer.trainable = True
+
+
     #inputs = tf.keras.Input(shape=(28, 28, 1))
     #outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
