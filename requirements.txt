@@ -1,6 +1,6 @@
 numpy
 pillow
 matplotlib
-opencv-python
+opencv-python-headless
 tensorflow
 streamlit-drawable-canvas
