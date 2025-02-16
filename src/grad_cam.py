@@ -46,8 +46,8 @@ def grad_cam(model, img_tensor, layer_name):
     grads = tape.gradient(class_output, activations)
     
     # Debug: Check if grads is None
-    if grads is None:
-        raise ValueError("Gradients are None. Ensure correct class index and layer output.")
+    #if grads is None:
+    #    raise ValueError("Gradients are None. Ensure correct class index and layer output.")
     
     # Debug: Print gradient shape
     print(f"Grads shape: {grads.shape}")
