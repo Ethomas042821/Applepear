@@ -15,14 +15,14 @@ def bottom_activations(model, img_array):
     img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
 
     # Compute Grad-CAM heatmap
-    heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
+    #heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
 
     # Convert the input image tensor to a numpy array for plotting
     img = img_tensor[0].numpy()
 
     # Plot the result with the heatmap overlaid
-    plothtmp = src.plot_grad_cam(img, heatmap)
-    st.image(plothtmp,width=192)
+    #plothtmp = src.plot_grad_cam(img, heatmap)
+    #st.image(plothtmp,width=192)
     st.write('Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:')
     
     # Define a new model that outputs the activations of each layer
