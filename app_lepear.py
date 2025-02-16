@@ -15,8 +15,6 @@ def load_keras_model():
 
 # Call the function to load the model
 model = load_keras_model()
-inputs = tf.keras.Input(shape=(28, 28, 1))
-outputs = model(inputs)
 
 #for layer in model.layers:
 #    print(layer.name)

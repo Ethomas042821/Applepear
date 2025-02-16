@@ -3,6 +3,9 @@ import numpy as np
 
 # Function to compute Grad-CAM
 def grad_cam(model, img_tensor, layer_name):
+
+    #inputs = tf.keras.Input(shape=(1,28, 28, 1))
+    #outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
     # Ensure the model's last convolutional layer is passed
     grad_model = tf.keras.models.Model(
@@ -35,6 +38,7 @@ def grad_cam(model, img_tensor, layer_name):
     
     # Compute the pooled gradients
     pooled_grads = tf.reduce_mean(grads, axis=(0, 1, 2))  # Reduce over height and width
+    pooled_grads = pooled_grads / tf.norm(pooled_grads)  # Normalize the pooled gradients in order to better see their impact
     
     # Apply the gradients to the activations
     heatmap = activations[0].numpy()
