@@ -24,8 +24,8 @@ model = st.session_state.model
 # Call the function to load the model
 
 
-#for layer in model.layers:
-#    print(layer.name)
+for layer in model.layers:
+    print(layer.name)
 
 st.write("What makes an apple an apple and a pear a pear? I believe it's based on 240,514 parameters. Draw a picture and prove me wrong.")
 
