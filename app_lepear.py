@@ -67,6 +67,6 @@ if on:
         try:
             page_layout.bottom_activations(model, img_array)
         except Exception as e:
-            st.error(f"Error during activations display: {e}")
+            st.error(f"Error during gradcam and activations display: {e}")
 
 
