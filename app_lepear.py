@@ -4,6 +4,8 @@ import numpy as np
 import page_layout
 import tensorflow as tf
 
+st.write("TensorFlow version: ", tf.__version__)
+
 st.title("The :green[pear]fect :red[apple]")
 
 # Define a function to load the model and apply caching
