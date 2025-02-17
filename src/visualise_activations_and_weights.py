@@ -31,10 +31,22 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     # Create a second y-axis to plot the weights on the left side
     ax2 = ax1.twinx()  # Create a second axis that shares the same x-axis
 
+    # List to store results for highlighting
+    highlight_indices = []
     # Plot corresponding weights to the output layer (Dense(2)) on ax2
     offset = 0.2  # Set a small offset between neurons' weights (to avoid overlap)
     for i, idx in enumerate(top_k_indices):
         weights_to_output = dense_128_weights[idx, :]  # Weights to the two output neurons (apple, pear)
+
+            # Multiply activations by corresponding weights
+        weighted_sum_apple = top_k_activations[i] * weights_to_output[0]
+        weighted_sum_pear = top_k_activations[i] * weights_to_output[1]
+
+        if (st.session_state.class_idx == 0 and weighted_sum_apple> weighted_sum_pear):
+            highlight_indices.append(i)
+
+        if (st.session_state.class_idx == 1 and weighted_sum_apple < weighted_sum_pear):
+            highlight_indices.append(i)
 
         if(weights_to_output[0] <= 0):
             # Plot the weight to the "apple" class (class 0) on the left axis (ax2)
@@ -50,6 +62,10 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
 
     # Add a dotted line at y = 0 to represent the threshold
     ax2.axhline(y=0, color='black', linestyle='--', label="Weight = 0")
+
+    # Highlight the bars for the neurons where the prediction is correct
+    for idx in highlight_indices:
+        ax1.bar(idx, top_k_activations[idx], color=plt.cm.viridis(top_k_activations / max(top_k_activations)), alpha = 1, edgecolor='black', linewidth=2)  # Orange color with black edge for the highlight
 
 
     # Set the left axis label (for weights)

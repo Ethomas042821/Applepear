@@ -44,6 +44,8 @@ def column_prediction(model, canvas_result):
 
     # Get the index of the class with the highest probability
     class_idx = np.argmax(prediction)  # This returns the index of the highest value (0 or 1)
+
+    st.session_state.class_idx = class_idx
     
     # Get the predicted class label
     predicted_class = class_labels_color[class_idx]
