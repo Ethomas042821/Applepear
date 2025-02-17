@@ -2,13 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import streamlit as st
 
-import numpy as np
-import matplotlib.pyplot as plt
-import streamlit as st
-
-import matplotlib.pyplot as plt
-import numpy as np
-import streamlit as st
 
 def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     # Get the layer names from the model, excluding the input layer (if any)
@@ -29,7 +22,7 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     fig, ax1 = plt.subplots(figsize=(8, 6))
 
     # Plot activations on the right axis (ax1)
-    ax1.bar(range(top_k), top_k_activations, color='skyblue', label="Top k Activations")
+    ax1.bar(range(top_k), top_k_activations, color=plt.cm.viridis(top_k_activations / max(top_k_activations)), label="Top k Activations")
     ax1.set_ylabel("Activation Value", color='skyblue')
     ax1.set_xlabel("Neurons (Top k)")
     ax1.set_title(f"Top {top_k} Activations and Weights")
@@ -43,11 +36,17 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     for i, idx in enumerate(top_k_indices):
         weights_to_output = dense_128_weights[idx, :]  # Weights to the two output neurons (apple, pear)
 
-        # Plot the weight to the "apple" class (class 0) on the left axis (ax2)
-        ax2.plot(i - offset, weights_to_output[0], 'ro', label="Weight to Class 0" if i == 0 else "")
+        if(weights_to_output[0] <= 0):
+            # Plot the weight to the "apple" class (class 0) on the left axis (ax2)
+            ax2.plot(i - offset, weights_to_output[0], 'rv', label="Weight to class Apple" if i == 0 else "")
+        if(weights_to_output[0] > 0):
+            ax2.plot(i - offset, weights_to_output[0], 'r^', label="Weight to class Apple" if i == 0 else "")
+        if(weights_to_output[1] <= 0):
+            # Plot the weight to the "pear" class (class 1) on the left axis (ax2)
+            ax2.plot(i + offset, weights_to_output[1], 'gv', label="Weight to class Pear" if i == 0 else "")
+        if(weights_to_output[1] > 0):
+            ax2.plot(i + offset, weights_to_output[1], 'g^', label="Weight to class Pear" if i == 0 else "")
 
-        # Plot the weight to the "pear" class (class 1) on the left axis (ax2)
-        ax2.plot(i + offset, weights_to_output[1], 'go', label="Weight to Class 1" if i == 0 else "")
 
     # Add a dotted line at y = 0 to represent the threshold
     ax2.axhline(y=0, color='black', linestyle='--', label="Weight = 0")
