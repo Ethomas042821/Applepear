@@ -1,8 +1,9 @@
 import streamlit as st
 import matplotlib.pyplot as plt
 from config import settings
+import src
 
-def visualise_activations(activations, model, num_columns=8):
+def visualise_activations(activations, model,img_array, num_columns=8):
     # Get the layer names from the model, excluding the input layer (if any)
     layer_names = [layer.name for layer in model.layers if 'input' not in layer.name]
 
@@ -53,3 +54,7 @@ def visualise_activations(activations, model, num_columns=8):
             ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='viridis', aspect='auto')
             ax.axis('off')  # Turn off axes
             st.pyplot(fig)
+
+            if layer_name == 'dense':#the last layer before uotput
+                with st.expander("Click here to see inside my neurons:"):
+                    src.visualise_activations_and_weights(st.session_state.model, activations, img_array)

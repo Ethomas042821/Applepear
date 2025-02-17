@@ -29,7 +29,7 @@ layer_info = {
     },
     "dense": {
         "step": "Dense Layer 1",
-        "description": "This is it — this is 'what makes an apple an apple, or a pear a pear.' :) The fully connected (dense) layer links all the features together. Based on the patterns I have identified in the previous layers, I start to combine the information to make predictions about what the sketch represents. The brighter areas show where I am focusing on specific features I am trained to recognize."
+        "description": "In this fully connected dense neural layer, each neuron (line) corresponds to a particular feature of the sketch. These features—like shape, curves, or symmetry—are what I’ve learned to recognize when distinguishing between apples and pears. The brightness of the neurons represents how much each feature has been detected in the sketch. In the next step, I’ll use these learned features to analyze your sketch further, focusing on whether it’s more 'applish' or 'pearish.'"
     },
     "dropout": {
         "step": "Dropout Layer",
@@ -37,6 +37,6 @@ layer_info = {
     },
     "dense_1": {
         "step": "Dense Layer 2",
-        "description": "In the final dense layer, I make my decision: apple (left) / pear (right)."
+        "description": "In the final layer, I evaluate my decision by combining the information from all the features detected in the previous layers. The output from the previous layer helps determine the strength of each feature. Each neuron’s output is influenced by both its activation (how much the feature is detected in the sketch, represented by its brightness in the plot) and the weight (how important that feature is for the classification). For each class (apple or pear), the model computes a score by multiplying the activation of each feature (from the previous layer) by the weight for that class and summing the results. The stronger the activation and the higher the weight of a particular feature for a given class, the higher the score for that class. After evaluating the scores for both classes, the class with the higher score determines my final prediction: apple (left) or pear (right)."
     }
 }

@@ -34,4 +34,5 @@ def bottom_activations(model, img_array):
     
     # Visualize activations for each layer in Streamlit
     st.write("I don’t see a sketch—I see an array of numbers between 0 and 1 (grayscale pixels). My algorithm goes through several steps (layers) to detect key patterns (features), which I’ve been trained to examine. Let me show you exactly how I process your sketch at each layer.")
-    src.visualise_activations(activations,activation_model)
+    src.visualise_activations(activations,activation_model, img_array)
+
