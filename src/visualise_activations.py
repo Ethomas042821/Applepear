@@ -2,7 +2,6 @@ import streamlit as st
 import matplotlib.pyplot as plt
 from config import settings
 
-
 def visualise_activations(activations, model, num_columns=8):
     # Get the layer names from the model, excluding the input layer (if any)
     layer_names = [layer.name for layer in model.layers if 'input' not in layer.name]
@@ -42,15 +41,15 @@ def visualise_activations(activations, model, num_columns=8):
 
             for j in range(num_filters):
                 ax = axes[j]
-                ax.imshow(layer_activation[0, :, :, j], cmap='pink')  # Display one filter's feature map
+                ax.imshow(layer_activation[0, :, :, j], cmap='viridis')  # Display one filter's feature map
                 ax.axis('off')  # Turn off axes
 
             # Display the plot in Streamlit
             st.pyplot(fig)
 
         elif len(layer_activation.shape) == 2:  # Flatten or Dense layer (batch_size, num_units)
-            # Visualize 2D activations (often used for fully connected layers)
+            # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
-            ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='pink', aspect='auto')
+            ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='viridis', aspect='auto')
             ax.axis('off')  # Turn off axes
             st.pyplot(fig)

@@ -1,22 +1,14 @@
 import cv2
 import numpy as np
 from PIL import Image
-import matplotlib.pyplot as plt
-
 
 def plot_grad_cam(img, heatmap):
     # Resize heatmap to match the image dimensions
-
     heatmap = cv2.resize(heatmap, (img.shape[1], img.shape[0]))
 
-    
-    # Convert heatmap to RGB (jet colormap)
+    # Convert heatmap to RGB
     heatmap = np.uint8(255 * heatmap)  # Convert heatmap to range [0, 255]
-
-    #heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)  # Apply a colormap to the heatmap
-    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_PINK)  # Apply a colormap to the heatmap
-
-    heatmap = cv2.cvtColor(heatmap, cv2.COLOR_BGR2RGB) #I want blue low and red high
+    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_VIRIDIS)  # Apply a colormap to the heatmap
     heatmap = np.float32(heatmap) / 255  # Normalize to [0, 1] for overlay
     
     # Overlay the heatmap on the image

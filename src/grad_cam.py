@@ -13,9 +13,6 @@ def grad_cam(model, img_tensor, layer_name):
     for layer in st.session_state.model.layers:
          layer.trainable = True
 
-
-    #inputs = tf.keras.Input(shape=(28, 28, 1))
-    #outputs = model(inputs)
     # Create a model that gives us both the activations and predictions
     conv_layers = [layer.output for layer in st.session_state.model.layers if isinstance(layer, tf.keras.layers.Conv2D)]
 
@@ -25,14 +22,12 @@ def grad_cam(model, img_tensor, layer_name):
     # Get the output of the final layer (output layer)
     output_layer_output = st.session_state.model.layers[-1].output
 
-    # Combine the outputs into a list
     
-
     grad_model = tf.keras.models.Model(
         #inputs=[model.inputs],
         inputs=[st.session_state.model.get_layer(index=0).input],
         #outputs=[model.get_layer(layer_name).output, model.output]
-        #outputs=[st.session_state.model.layers[-4].output, st.session_state.model.layers[-1].output]
+        #outputs=[st.session_state.model.layers[-4].output, output_layer_output]
         outputs = [last_conv_layer_output, output_layer_output]
     )
     
@@ -76,7 +71,6 @@ def grad_cam(model, img_tensor, layer_name):
     # Take the mean of the feature map across all channels
     heatmap = np.mean(heatmap, axis=-1)
     
-
     # Normalize the heatmap
     heatmap = np.maximum(heatmap, 0)
     heatmap /= np.max(heatmap)  # Normalize to [0, 1]

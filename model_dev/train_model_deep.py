@@ -17,10 +17,9 @@ print("Shape of labels:", data['labels'].shape)  # Check the shape of the labels
 print("Unique labels values:", np.unique(data['labels']))  # Unique values in labels
 print("Labels example (first 5):", data['labels'][:5])  # Show first 5 labels
 
-# Step 2: Extract images and labels (i start with 5000 rows)
+# Step 2: Extract images and labels
 not_inverted_images = data['images']
 labels = data['labels']
-# labels = data['labels'][:500000]
 
 images = 255 - not_inverted_images
 
