@@ -11,7 +11,7 @@ def bottom_activations(model, img_array):
     st.write("(Sometimes, the entire surface of the image holds equal significance, particularly with large and symmetrical apples.)")
     
     # Convert the image to a TensorFlow tensor
-    #img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
+    img_tensor = tf.convert_to_tensor(img_array, dtype=tf.float32)
 
     # Compute Grad-CAM heatmap
     #heatmap = src.grad_cam(model, img_tensor, layer_name='conv2d_2')  # last conv layer
@@ -22,7 +22,7 @@ def bottom_activations(model, img_array):
     # Plot the result with the heatmap overlaid
     #plothtmp = src.plot_grad_cam(img, heatmap)
     #st.image(plothtmp,width=192)
-    
+
     st.write("Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:")
     
     # Define a new model that outputs the activations of each layer
