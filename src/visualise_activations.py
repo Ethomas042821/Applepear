@@ -69,9 +69,9 @@ def visualise_activations(activations, model,img_array, num_columns=8):
                             \n
                             The neurons that have the most influence on predicting {st.session_state.predicted_class_for_desc} (compared to {st.session_state.unpredicted_class_for_desc} ) are highlighted with a black frame. (Sometimes, this will be all five neurons in the plot.)
                             \n
-                            That’s really the crux of it. When I say '{st.session_state.fun_predicted_class_for_desc}', what I mean is this: a '{st.session_state.fun_predicted_class_for_desc}' sketch is one that activates neurons which favor the {st.session_state.predicted_class_for_desc} class, rather than the {st.session_state.unpredicted_class_for_desc} class. 
+                            That's really the crux of it. When I say '{st.session_state.fun_predicted_class_for_desc}', what I mean is this: '{st.session_state.fun_predicted_class_for_desc}' sketch is one that activates neurons which favor the {st.session_state.predicted_class_for_desc} class, rather than the {st.session_state.unpredicted_class_for_desc} class. 
                             \n
-                            The final output layer has only two neurons, one for apple( left), one for pear (right). The one with highest score shines:
+                            The final output layer has only two neurons, one for apple( left), one for pear (right). The one with the highest score shines:
                             """)
             # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
