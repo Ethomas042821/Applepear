@@ -3,7 +3,7 @@ import tensorflow as tf
 import streamlit as st
 
 def bottom_activations(model, img_array):
-    st.write("Hello! I'm a convolutional neural network, trained to recognize apples and pears. I’m pretty good at it, if I do say so myself.")
+    st.write("Hello! I'm a convolutional neural network, trained to recognize apples and pears. I’m pretty good at it, if I do say so myself :)")
     st.write(" Am I smart? I’ve been trained on over 570,000 apple sketches and nearly 470,000 pear sketches. How many sketch examples would YOU need to see to tell apples and pears apart? 10? 5? 1?")
     st.write("Apples and pears are pretty much all I know. So, if you draw anything else, I’ll tell you at least if it’s more apple-like (let’s call that 'applish' just for fun) or more pear-like ('pearish').")
     st.write("But what exactly do 'applish' and 'pearish' mean? Let’s take a look at your image through my eyes and I’ll show you how I see it.")
@@ -33,4 +33,6 @@ def bottom_activations(model, img_array):
     activations = activation_model.predict(img_array)
     
     src.visualise_activations(activations,activation_model, img_array)
+
+    st.write("And just like that, the mystery of the 'applish' vs. 'pearish' question is finally revealed ;)")
 

@@ -23,10 +23,10 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
 
     # Plot activations on the right axis (ax1)
     ax1.bar(range(top_k), top_k_activations, color=plt.cm.viridis(top_k_activations / max(top_k_activations)), label="Top k Activations")
-    ax1.set_ylabel("Activation Value", color='skyblue')
+    ax1.set_ylabel("Activation Value", color='black')
     ax1.set_xlabel("Neurons (Top k)")
     ax1.set_title(f"Top {top_k} Activations and Weights")
-    ax1.tick_params(axis='y', labelcolor='skyblue')
+    ax1.tick_params(axis='y', labelcolor='black')
 
     # Create a second y-axis to plot the weights on the left side
     ax2 = ax1.twinx()  # Create a second axis that shares the same x-axis
@@ -65,8 +65,7 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
 
     # Highlight the bars for the neurons where the prediction is correct
     for idx in highlight_indices:
-        ax1.bar(idx, top_k_activations[idx], color="None", edgecolor='black', linewidth=2)  # Orange color with black edge for the highlight
-
+        ax1.bar(idx, top_k_activations[idx], color="None", edgecolor='black', linewidth=3) 
 
     # Set the left axis label (for weights)
     ax2.set_ylabel("Weight Value", color='black')

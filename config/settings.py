@@ -33,13 +33,9 @@ layer_info = {
         In this fully connected dense neural layer, each neuron (line) corresponds to a particular filtered high level feature —like shape, curves, or symmetry—a of the sketch. 
         \n
         There are 128 neurons in the picture, from which, only a few are activated (bright).
-        The brightness of the neurons represents how much each feature has been detected in the sketch. 
+        Again, the brightness of the neurons represents how much each feature has been detected in the sketch. 
         \n
-        Now comes the fun part.
-        \n
-        The output of this layer helps to determine the strenght of 'applish' or 'pearish' nature of your sketch. How?
-        Each neuron’s output is influenced by both its activation (how much the feature is detected in the sketch, represented by its brightness in the plot) and the weight (how important that feature is for the classification). 
-        The stronger the activation and the higher the weight of a particular feature for a given class, the higher the score for that class. 
+        And now comes the fun part.
         """
     },
     "dropout": {
@@ -49,10 +45,7 @@ layer_info = {
     "dense_1": {
         "step": "Dense Layer 2",
         "description": """
-
-        In the last layer, I  make my decision. 
-        For each class (apple or pear), I calculate a score by multiplying the activation of each feature by its weight for that class and summing the results. 
-        The class with the higher score is the final prediction: either apple (left) or pear (right).
+        
         
         """
     }

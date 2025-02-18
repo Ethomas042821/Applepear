@@ -49,25 +49,30 @@ def visualise_activations(activations, model,img_array, num_columns=8):
             st.pyplot(fig)
 
         elif len(layer_activation.shape) == 2:  # Flatten or Dense layer (batch_size, num_units)
+
+            if layer_name == 'dense_1':#the last layer before uotput
+                st.write("""
+                         In the final layer of the network, the decision is made. For both classes (apple and pear), I calculate a score by multiplying the activation of each feature by its weight for that class, and then summing the results. The class that results in the higher score becomes the model’s final prediction.
+                        \n
+                        But wait—let's take a closer look.
+                        \n
+                        We’ll examine the 5 most active neurons from the previous layer, and compare how their activations and corresponding weights contribute to the 'applish' or 'pearish' classification. 
+                         """)
+                src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
+                st.write("""
+                            I can highlight the neurons that are most influential for the apple prediction relative to the pear prediction. 
+                            \n
+                            These are the neurons whose weighted activations have the strongest effect on the final prediction of apple, compared to pear (or vice versa). 
+                            \n
+                            The final output has only two neurons, one for apple( left), one for pear (right):
+                            """)
             # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
             ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='viridis', aspect='auto')
             ax.axis('off')  # Turn off axes
             st.pyplot(fig)
 
-            if layer_name == 'dense':#the last layer before uotput
-                st.write("Lets take a closer look at the 5 most active neurons and the corresponding weights for 'applish' and 'pearish' class.")
-                src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
-                st.write("""
-                         In this plot, you finally see, what is inside the key part of my neural network.
-                         \n
-                         Each neuron is activated by combinations of features that may span across the entire image, contributing my understanding of what makes something applish or pearish. 
-                         \n
-                         I can highlight the neurons that are most influential for the apple prediction relative to the pear prediction. 
-                         \n
-                         These are the neurons whose weighted activations have the strongest effect on the final prediction of apple, compared to pear (or vice versa). 
-                         \n
-                         Essentially, we see for what makes the image more apple-like by looking at which neurons contribute more towards apple than pear (and vice versa).
-                         """)
+
+           
             # if layer_name == 'dense_1':#the output_layer
             #     src.visualise_softmax(st.session_state.model, activations) #this is even more confusing when trying to visualise so i skip it for now
