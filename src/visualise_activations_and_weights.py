@@ -65,7 +65,7 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
 
     # Highlight the bars for the neurons where the prediction is correct
     for idx in highlight_indices:
-        ax1.bar(idx, top_k_activations[idx], color=plt.cm.viridis(top_k_activations / max(top_k_activations)), alpha = 1, edgecolor='black', linewidth=2)  # Orange color with black edge for the highlight
+        ax1.bar(idx, top_k_activations[idx], color="None", edgecolor='black', linewidth=2)  # Orange color with black edge for the highlight
 
 
     # Set the left axis label (for weights)
