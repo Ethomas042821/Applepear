@@ -38,7 +38,7 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     for i, idx in enumerate(top_k_indices):
         weights_to_output = dense_128_weights[idx, :]  # Weights to the two output neurons (apple, pear)
 
-            # Multiply activations by corresponding weights
+        # Multiply activations by corresponding weights
         weighted_sum_apple = top_k_activations[i] * weights_to_output[0]
         weighted_sum_pear = top_k_activations[i] * weights_to_output[1]
 
@@ -47,21 +47,21 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
 
         if (st.session_state.class_idx == 1 and weighted_sum_apple < weighted_sum_pear):
             highlight_indices.append(i)
-
+        #I wanted to show pointing arrows up and down, but currently i use an "8" markerbfor both because its less confusing in the end
         if(weights_to_output[0] <= 0):
             # Plot the weight to the "apple" class (class 0) on the left axis (ax2)
-            ax2.plot(i - offset, weights_to_output[0], 'rv', label="Weight to class Apple" if i == 0 else "")
+            ax2.plot(i - offset, weights_to_output[0], 'r8', label="Weight to class Apple" if i == 0 else "")
         if(weights_to_output[0] > 0):
-            ax2.plot(i - offset, weights_to_output[0], 'r^', label="Weight to class Apple" if i == 0 else "")
+            ax2.plot(i - offset, weights_to_output[0], 'r8', label="Weight to class Apple" if i == 0 else "")
         if(weights_to_output[1] <= 0):
             # Plot the weight to the "pear" class (class 1) on the left axis (ax2)
-            ax2.plot(i + offset, weights_to_output[1], 'gv', label="Weight to class Pear" if i == 0 else "")
+            ax2.plot(i + offset, weights_to_output[1], 'g8', label="Weight to class Pear" if i == 0 else "")
         if(weights_to_output[1] > 0):
-            ax2.plot(i + offset, weights_to_output[1], 'g^', label="Weight to class Pear" if i == 0 else "")
+            ax2.plot(i + offset, weights_to_output[1], 'g8', label="Weight to class Pear" if i == 0 else "")
 
 
     # Add a dotted line at y = 0 to represent the threshold
-    ax2.axhline(y=0, color='black', linestyle='--', label="Weight = 0")
+    #ax2.axhline(y=0, color='black', linestyle='--', label="Weight = 0")
 
     # Highlight the bars for the neurons where the prediction is correct
     for idx in highlight_indices:

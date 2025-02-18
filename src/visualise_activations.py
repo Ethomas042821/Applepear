@@ -51,20 +51,22 @@ def visualise_activations(activations, model,img_array, num_columns=8):
         elif len(layer_activation.shape) == 2:  # Flatten or Dense layer (batch_size, num_units)
 
             if layer_name == 'dense_1':#the last layer before uotput
-                st.write("""
-                         In the final layer of the network, the decision is made. For both classes (apple and pear), I calculate a score by multiplying the activation of each feature by its weight for that class, and then summing the results. The class that results in the higher score becomes the model’s final prediction.
+                st.write(f"""
+                         In the final layer of the network, the decision is made. For both classes (apple and pear), I calculate a score by multiplying the activation (brightness) of each neuron by its weight for that class, and then summing the results. The class that results in the higher score becomes my final prediction.
                         \n
                         But wait—let's take a closer look.
                         \n
-                        We’ll examine the 5 most active neurons from the previous layer, and compare how their activations and corresponding weights contribute to the 'applish' or 'pearish' classification. 
+                        We’ll examine the 5 most active neurons from the previous layer, and compare how their activations and corresponding weights contribute to the {st.session_state.predicted_class_for_desc} classification of your sketch. 
                          """)
                 src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
-                st.write("""
-                            I can highlight the neurons that are most influential for the apple prediction relative to the pear prediction. 
+                st.write(f"""
+                            You can see the neurons as bars and for each neuron corresponding weight for apple class and weight for pear class in that given neuron.
                             \n
-                            These are the neurons whose weighted activations have the strongest effect on the final prediction of apple, compared to pear (or vice versa). 
+                            The neurons that are most influential for the {st.session_state.predicted_class_for_desc} prediction relative to the {st.session_state.unpredicted_class_for_desc} prediction for your sketch are plotted with a black frame (sometimes its all the 5 neurons in the plot.)
                             \n
-                            The final output has only two neurons, one for apple( left), one for pear (right):
+                            Thats it. Thats what '{st.session_state.fun_predicted_class_for_desc}' means to me in your (acoording to my prediction) {st.session_state.predicted_class_for_desc} picture: its hidden in the complex features of neurons whose weighted activations have the strongest effect on the final prediction of {st.session_state.predicted_class_for_desc} , compared to {st.session_state.unpredicted_class_for_desc}. 
+                            \n
+                            The final output has only two neurons, one for apple( left), one for pear (right). The one with highest score shines:
                             """)
             # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))

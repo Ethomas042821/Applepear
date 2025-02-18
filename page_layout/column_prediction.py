@@ -44,6 +44,7 @@ def column_prediction(model, canvas_result):
 
     # Get the index of the class with the highest probability
     class_idx = np.argmax(prediction)  # This returns the index of the highest value (0 or 1)
+    not_sel_class_idx = np.argmin(prediction)  # This returns the index of the lowest value (0 or 1)
 
     st.session_state.class_idx = class_idx
     
@@ -55,6 +56,14 @@ def column_prediction(model, canvas_result):
 
     # Define class labels for the piechart (for visualization)
     class_labels = ['apple', 'pear']
+    class_fun_labels = ['applish', 'pearish']
+
+    # Get the predicted class label
+    st.session_state.predicted_class_for_desc = class_labels[class_idx]
+    st.session_state.unpredicted_class_for_desc = class_labels[not_sel_class_idx]
+
+    st.session_state.fun_predicted_class_for_desc = class_fun_labels[class_idx]
+    st.session_state.fun_unpredicted_class_for_desc = class_fun_labels[not_sel_class_idx]
     
     # Create and display the pie chart
     piechart = src.create_piechart(prediction, class_labels)
