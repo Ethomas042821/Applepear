@@ -7,6 +7,8 @@ from tensorflow.keras.models import load_model
 # Display TensorFlow version for informational purposes
 # st.write("TensorFlow version: ", tf.__version__)
 
+
+
 st.title("The :green[pear]fect :red[apple]")
 
 # Define a function to load the model and apply caching
@@ -30,6 +32,9 @@ if 'model' not in st.session_state:
 
 # Access the model from session state
 model = st.session_state.model
+
+for layer in model.layers:
+    print(layer.name)
 
 # Print all layer names in the model for debugging or informational purposes
 # for layer in model.layers:

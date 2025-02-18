@@ -59,13 +59,15 @@ def visualise_activations(activations, model,img_array, num_columns=8):
                 st.write("Lets take a closer look at the 5 most active neurons and the corresponding weights for 'applish' and 'pearish' class.")
                 src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
                 st.write("""
-                         In this plot, you finally see, what is inside the key part of my neural network. 
+                         In this plot, you finally see, what is inside the key part of my neural network.
                          \n
-                         From the neurons, you can’t directly identify which parts of the image are most applish in terms of raw visual features because neurons don’t correspond to specific image areas.
+                         Each neuron is activated by combinations of features that may span across the entire image, contributing my understanding of what makes something applish or pearish. 
                          \n
-                         Instead, each neuron is activated by combinations of features that may span across the entire image, contributing my understanding of what makes something applish or pearish. However, I can highlight the neurons that are most influential for the apple prediction relative to the pear prediction. 
+                         I can highlight the neurons that are most influential for the apple prediction relative to the pear prediction. 
                          \n
-                         These are the neurons whose weighted activations have the strongest effect on the final prediction of apple, compared to pear. This can be determined by identifying which neurons have higher weighted activations for apple, even if both apple and pear activations are negative.
+                         These are the neurons whose weighted activations have the strongest effect on the final prediction of apple, compared to pear (or vice versa). 
                          \n
-                         Essentially, we are searching for what makes the image more apple-like by looking at which neurons contribute more towards apple than pear.
+                         Essentially, we see for what makes the image more apple-like by looking at which neurons contribute more towards apple than pear (and vice versa).
                          """)
+            # if layer_name == 'dense_1':#the output_layer
+            #     src.visualise_softmax(st.session_state.model, activations) #this is even more confusing when trying to visualise so i skip it for now
