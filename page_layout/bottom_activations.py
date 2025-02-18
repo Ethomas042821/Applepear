@@ -34,5 +34,5 @@ def bottom_activations(model, img_array):
     
     src.visualise_activations(activations,activation_model, img_array)
 
-    st.write("And just like that, the mystery of the 'applish' vs. 'pearish' question remains hidden in the complex features that the neurons detect ;)")
+    st.write("And just like that, the mystery of what makes something 'applish' versus 'pearish' remains hidden in the complex features that the neurons detect ;)")
 

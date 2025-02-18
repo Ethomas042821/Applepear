@@ -52,21 +52,26 @@ def visualise_activations(activations, model,img_array, num_columns=8):
 
             if layer_name == 'dense_1':#the last layer before uotput
                 st.write(f"""
-                         In the final layer of the network, the decision is made. For both classes (apple and pear), I calculate a score by multiplying the activation (brightness) of each neuron by its weight for that class, and then summing the results. The class that results in the higher score becomes my final prediction.
+                         In the final layer of the network, the decision is made.  For each class—apple and pear—I calculate a score. This score comes from multiplying the activation (or brightness) of each neuron by its weight for that class. Then, I sum up all these results for each class. The class that has the higher score becomes my final prediction.
                         \n
                         But wait—let's take a closer look.
-                        \n
-                        We’ll examine the 5 most active neurons from the previous layer, and compare how their activations and corresponding weights contribute to the {st.session_state.predicted_class_for_desc} classification of your sketch. 
+                        \n    
+                        We'll examine the five most active neurons from the previous layer. These are the neurons that have the greatest impact on the network's decision. For each of these neurons, I will show you how the activations and corresponding weights contribute to the {st.session_state.predicted_class_for_desc} classification of your sketch.
+                         
                          """)
                 src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
                 st.write(f"""
-                            You can see the neurons as bars and for each neuron corresponding weight for apple class and weight for pear class in that given neuron.
+                            In this visualization, each neuron is represented as a bar with heigh corresponding to its activation. 
                             \n
-                            The neurons that are most influential for the {st.session_state.predicted_class_for_desc} prediction relative to the {st.session_state.unpredicted_class_for_desc} prediction for your sketch are plotted with a black frame (sometimes its all the 5 neurons in the plot.)
+                            For every neuron, I display two corresponding weights—one for the apple class and one for the pear class. 
                             \n
-                            Thats it. Thats what '{st.session_state.fun_predicted_class_for_desc}' means to me in your (acoording to my prediction) {st.session_state.predicted_class_for_desc} picture: its hidden in the complex features of neurons whose weighted activations have the strongest effect on the final prediction of {st.session_state.predicted_class_for_desc} , compared to {st.session_state.unpredicted_class_for_desc}. 
+                             The strength of a neuron's contribution to the predicted class is determined by multiplying its activation by the weight for that class. This gives us a measure of how much each neuron influences the final decision for either apple or pear.
                             \n
-                            The final output has only two neurons, one for apple( left), one for pear (right). The one with highest score shines:
+                            The neurons that have the most influence on predicting {st.session_state.predicted_class_for_desc} (compared to {st.session_state.unpredicted_class_for_desc} ) are highlighted with a black frame. (Sometimes, this will be all five neurons in the plot.)
+                            \n
+                            That’s really the crux of it. When I say '{st.session_state.fun_predicted_class_for_desc}', what I mean is this: a '{st.session_state.fun_predicted_class_for_desc}' sketch is one that activates neurons which favor the {st.session_state.predicted_class_for_desc} class, rather than the {st.session_state.unpredicted_class_for_desc} class. 
+                            \n
+                            The final output layer has only two neurons, one for apple( left), one for pear (right). The one with highest score shines:
                             """)
             # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
