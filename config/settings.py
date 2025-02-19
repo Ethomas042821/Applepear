@@ -30,9 +30,9 @@ layer_info = {
     "dense": {
         "step": "Dense Layer 1",
         "description": """
-        In this fully connected dense neural layer, each neuron (line) corresponds to a particular filtered high level feature —like shape, curves, or symmetry—a of the sketch. 
+        In this fully connected dense neural layer, each neuron (line) corresponds to a particular filtered high level feature -like shape, curves, or symmetry- of the sketch. 
         \n
-        There are 128 neurons in the picture, from which, only a few are activated (bright).
+        There are 128 neurons in the picture, from which only a few are activated (bright).
         Again, the brightness of the neurons represents how much each feature has been detected in the sketch. 
         \n
         And now comes the fun part.

@@ -61,7 +61,7 @@ def visualise_activations(activations, model,img_array, num_columns=8):
                          """)
                 src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
                 st.write(f"""
-                            In this visualization, each neuron is represented as a bar with heigh corresponding to its activation. 
+                            In this visualization, each neuron is represented as a bar with height corresponding to its activation. 
                             \n
                             For every neuron, I display two corresponding weights—one for the apple class and one for the pear class. 
                             \n

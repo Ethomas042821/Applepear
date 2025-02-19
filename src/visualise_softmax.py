@@ -2,6 +2,11 @@ import numpy as np
 import matplotlib.pyplot as plt
 import streamlit as st
 
+
+#
+# In the end I did not use this function because softmax is waaay too confusing for broad audience
+#
+
 def softmax(logits):
     """Compute softmax values for each class in the logits vector."""
     e_x = np.exp(logits - np.max(logits))  # Numerical stability improvement
