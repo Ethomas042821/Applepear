@@ -52,9 +52,9 @@ def visualise_activations(activations, model,img_array, num_columns=8):
 
             if layer_name == 'dense_1':#the last layer before uotput
                 st.write(f"""
-                         In the final layer of the network, the decision is made.  For each class—apple and pear—I calculate a score. This score comes from multiplying the activation (or brightness) of each neuron by its weight for that class. Then, I sum up all these results for each class. The class that has the higher score becomes my final prediction.
+                         In the final layer of the network, the decision is made.  For each class-apple and pear-I calculate a score. This score comes from multiplying the activation (or brightness) of each neuron by its weight for that class. Then, I sum up all these results for each class. The class that has the higher score becomes my final prediction.
                         \n
-                        But wait—let's take a closer look.
+                        But wait-let's take a closer look.
                         \n    
                         We'll examine the five most active neurons from the previous layer. These are the neurons that have the greatest impact on the network's decision. For each of these neurons, I will show you how the activations and corresponding weights contribute to the {st.session_state.predicted_class_for_desc} classification of your sketch.
                          
@@ -63,7 +63,7 @@ def visualise_activations(activations, model,img_array, num_columns=8):
                 st.write(f"""
                             In this visualization, each neuron is represented as a bar with height corresponding to its activation. 
                             \n
-                            For every neuron, I display two corresponding weights—one for the apple class and one for the pear class. 
+                            For every neuron, I display two corresponding weights-one for the apple class and one for the pear class. 
                             \n
                              The strength of a neuron's contribution to the predicted class is determined by multiplying its activation by the weight for that class. This gives us a measure of how much each neuron influences the final decision for either apple or pear.
                             \n
@@ -71,7 +71,7 @@ def visualise_activations(activations, model,img_array, num_columns=8):
                             \n
                             That's really the crux of it. When I say '{st.session_state.fun_predicted_class_for_desc}', what I mean is this: '{st.session_state.fun_predicted_class_for_desc}' sketch is one that activates neurons which favor the {st.session_state.predicted_class_for_desc} class, rather than the {st.session_state.unpredicted_class_for_desc} class. 
                             \n
-                            The final output layer has only two neurons, one for apple( left), one for pear (right). The one with the highest score shines:
+                            The final output layer has only two neurons, one for apple( left), one for pear (right). The neuron with the highest score lights up:
                             """)
             # Visualize 2D activations (fully connected layers)
             fig, ax = plt.subplots(figsize=(6, 2))
