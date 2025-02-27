@@ -1,3 +1,5 @@
+Hello, dear reader, I would really appreciate any feedback, feel free to message me (my email is on my profile).
+
 The aim of this app is to dive deep into CNN architecture while having fun at the same time. The text is intended for a broader audience, so it skips many technical details about CNNs. However, I'm not entirely sure about the actual breadth of the intended audience.
 
 Originally, I planned to include a Grad-CAM heatmap, but I couldn't get this feature to work on Streamlit for some unknown reason. As a result, that part of the code is commented out for now.
