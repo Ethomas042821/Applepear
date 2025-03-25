@@ -38,7 +38,7 @@ model = st.session_state.model
 # for layer in model.layers:
 #     print(layer.name)
 
-st.write("What makes an apple an apple and a pear a pear? I believe it's based on 897,154 parameters. Draw a picture and prove me wrong.")
+st.write("What makes an apple an apple and a pear a pear? I believe it's based on 240,514 parameters. Draw a picture and prove me wrong.")
 
 # Define the layout with two columns
 col1, col2 = st.columns(2)
