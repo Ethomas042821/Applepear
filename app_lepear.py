@@ -61,7 +61,7 @@ with col2:
             st.error(f"Error processing the drawing: {e}")
 
 # Toggle button for visualization
-on = st.toggle("CLICK HERE to see your drawing through my eyes!")
+on = st.checkbox("CLICK HERE to see your drawing through my eyes!")
 if on:
     # Check if drawing was made before attempting predictions
     if np.all(canvas_result.image_data == 255):  # Entire canvas is white
