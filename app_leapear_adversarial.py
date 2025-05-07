@@ -40,44 +40,67 @@ model = st.session_state.model
 # for layer in model.layers:
 #     print(layer.name)
 
-st.write("What makes an apple an apple and a pear a pear? I believe it's based on 240,514 parameters.")
-st.write("...But maybe its just a few additional pixels after all. Let's find out!")
+st.write("What makes an apple an apple and a pear a pear? I used to believe it was based on 240,514 parameters...")
+st.write("... But maybe its just a few additional pixels after all. Let's find out!")
+st.write("Try drawing your own sketch below. Then, use the slider to add a touch of adversarial noise - and see if you can fool me.")
 
 with st.expander("How does it work?"):
     st.write("""
     I am a Convolutional Neural Network (CNN) trained to classify images of apples and pears. I use a deep learning model with multiple layers to extract features from the images and make predictions.
     
-    You can draw an apple or a pear on the left canvas, and I will try to classify it. You can also add some noise to the image to see how I react to it.
-    
     The adversarial attack used here is the **Fast Gradient Sign Method (FGSM)**. It's a simple but powerful technique to fool neural networks by adding a small amount of noise in the direction that maximally increases the model's loss.
     """)
 
     st.latex(r"""
-    x_{\text{adv}} = x + \epsilon \cdot \text{sign}(\nabla_x J(\theta, x, y))
+    x_{\text{adv}} = x + \textcolor{blue}{\epsilon} \cdot \text{sign}(\nabla_x J(\theta, x, y)),
     """)
 
     st.write("""
-    - \( x \): original input image  
-    - \( \epsilon \): small scalar controlling the noise level  
-    - \( \nabla_x J(\theta, x, y) \): gradient of the loss with respect to the input  
-    - \( x_{\text{adv}} \): adversarial image  
+    where:
+    - $x$ is original input image  
+    - :blue[$\epsilon$ is a small scalar controlling the noise level] 
+    - $\\nabla_x$ J($\\theta$, x, y) is gradient of the loss with respect to the input  
+    - $x_{\\text{adv}}$ is adversarial image  
     """)
 
 # Define the layout with two columns
-col1, col2, col3 = st.columns(3)
+col1, col2, col3,col4,col5 = st.columns([0.3,0.05, 0.3, 0.05, 0.3])
 
 # Left column - drawing canvas and adversarial image
 with col1:
     canvas_result = page_layout.column_canvas_adversarial()
 
-with col2:
+with col3:
     st.header("Model input:")
-    epsilon = st.slider(":blue[Adversarial Noise Level ($\epsilon)]", 0.0, 0.3, 0.0, 0.005)
+
+    st.markdown("""
+    <style>
+    /* Style the thumb to be blue */
+    .stSlider > div[data-baseweb="slider"] [role="slider"] {
+        background-color: #1f77b4 !important;  /* Blue thumb */
+        border: 2px solid #1f77b4 !important;  /* Optional: border matching the thumb */
+    }
+
+    /* Style the value above the thumb to be blue */
+    .stSlider > div[data-baseweb="slider"] div[aria-valuenow] {
+        color: #1f77b4 !important;  /* Blue value */
+    }
+
+    /* Style the line that shows the slider progress (the filled part) */
+    .stSlider > div[data-baseweb="slider"] div[aria-valuenow] + div {
+        background-color: #1f77b4 !important;  /* Blue progress line */
+    }
+
+    </style>
+    """, unsafe_allow_html=True)
+
+    epsilon = st.slider(":blue[Adversarial Noise Level ($\epsilon$)]", 0.0, 0.2, 0.0, 0.005)
 
 # Right column - display the result
-with col3:
+with col5:
     st.header("I think this is...")
-
+    
+    st.markdown("<br>", unsafe_allow_html=True)
     # Check if the canvas is completely white (i.e., no drawing made)
     if np.all(canvas_result.image_data == 255):  # Entire canvas is white
         st.warning("Can't wait to see your drawing!")
@@ -106,7 +129,7 @@ with col3:
             confidence_adv = np.max(pred_adv)
 
 
-            with col2:
+            with col3:
                 st.markdown("<br>", unsafe_allow_html=True)
                 # Display adversarial image
                 st.image(adversarial.numpy(), use_container_width=False,width = 100)
@@ -125,6 +148,13 @@ with col3:
             st.error(f"Error processing the drawing: {e}")
 
 with st.expander("Hint"):
-    st.write("Smaller apples and pears are easier to fool. Try drawing a small one!")
+    st.write("Smaller apples and pears are easier to attack. Try drawing a small one!")
+
 st.markdown("<br>", unsafe_allow_html=True)
-st.caption("If you want to see what exactly happens in each layer of the model, check out this interactive app: applepear.streamlit.app")
+
+st.markdown("""
+    <div style="font-size: 14px; font-weight: normal; color: #555;">
+        If you want to see exactly what happens in each layer of the model after you draw the image, check out this interactive app:
+        <a href="https://applepear.streamlit.app" target="_blank" style="color: #1f77b4; text-decoration: none; font-weight: bold;">applepear.streamlit.app</a>
+    </div>
+""", unsafe_allow_html=True)
