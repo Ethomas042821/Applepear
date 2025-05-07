@@ -1,0 +1,13 @@
+
+
+
+Může neuronovou síť zmást pár pixelů navíc?
+Před pár měsíci jsem natrénovala konvoluční neuronovou síť, která rozpoznává jednoduché kresby jablek a hrušek.
+Od té doby jsem si v tichosti gratulovala, jak spolehlivě model funguje.
+
+Na jedné konferenci jsem ale narazila na inspirativní přednášku o adversariálních útocích – tedy o metodách, jakými lze neuronové sítě zmást téměř nepostřehnutelnými změnami vstupu.
+To mě přivedlo k myšlence: jak si pod palbou takového útoku povede můj model?
+
+Jak to dopadlo?
+Vyzkoušejte si to sami v nové verzi applepear.
+

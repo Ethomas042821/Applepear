@@ -1,3 +1,6 @@
 from .column_canvas import column_canvas
 from .column_prediction import column_prediction
 from .bottom_activations import bottom_activations
+from .column_prediction import just_retrieve_image
+from .column_prediction import adversarial_column_prediction
+from .column_canvas import column_canvas_adversarial
