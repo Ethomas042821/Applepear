@@ -6,4 +6,5 @@ from .convert_image import convert_image
 from .create_piechart import create_piechart
 from .create_adversarial_pattern import create_adversarial_pattern
 from .visualise_activations_adversarial import visualise_activations_adversarial
+from .compute_saliency_map import compute_saliency_map
  

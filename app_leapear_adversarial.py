@@ -154,6 +154,12 @@ with st.expander("Hint"):
 if np.all(canvas_result.image_data == 255):  # Entire canvas is white
     st.warning("Draw on canvas first!")
 else:
+    
+    try:
+        saliency_map = src.compute_saliency_map(model, adversarial, label)
+        st.image(saliency_map, caption="Saliency Map", use_column_width=True, clamp=True)
+    except Exception as e:
+        st.error(f"Failed to compute saliency map: {e}")
     try:
         page_layout.bottom_activations_adversarial(model, adversarial)
     except Exception as e:
