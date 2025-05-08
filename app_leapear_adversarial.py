@@ -150,6 +150,15 @@ with col5:
 with st.expander("Hint"):
     st.write("Smaller apples and pears are easier to attack. Try drawing a small one!")
 
+# Check if drawing was made before attempting predictions
+if np.all(canvas_result.image_data == 255):  # Entire canvas is white
+    st.warning("Draw on canvas first!")
+else:
+    try:
+        page_layout.bottom_activations_adversarial(model, adversarial)
+    except Exception as e:
+        st.error(f"Error during gradcam and activations display: {e}")
+
 st.markdown("<br>", unsafe_allow_html=True)
 
 st.markdown("""

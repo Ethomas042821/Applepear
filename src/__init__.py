@@ -5,3 +5,5 @@ from .visualise_activations_and_weights import visualise_activations_and_weights
 from .convert_image import convert_image
 from .create_piechart import create_piechart
 from .create_adversarial_pattern import create_adversarial_pattern
+from .visualise_activations_adversarial import visualise_activations_adversarial
+ 
