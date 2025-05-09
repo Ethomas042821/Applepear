@@ -48,7 +48,7 @@ with st.expander("How does it work?"):
     st.write("""
     I am a Convolutional Neural Network (CNN) trained to classify images of apples and pears. I use a deep learning model with multiple layers to extract features from the images and make predictions.
     
-    The adversarial attack used here is the **Fast Gradient Sign Method (FGSM)**. It's a simple but powerful technique to fool neural networks by adding a small amount of noise in the direction that maximally increases the model's loss.
+    The adversarial attack used here is the **Fast Gradient Sign Method (FGSM)**. It's a simple technique to fool neural networks by adding a small amount of noise in the direction that maximally increases the model's loss.
     """)
 
     st.latex(r"""
@@ -69,6 +69,15 @@ col1, col2, col3,col4,col5 = st.columns([0.3,0.01, 0.34, 0.08, 0.27])
 # Left column - drawing canvas and adversarial image
 with col1:
     canvas_result = page_layout.column_canvas_adversarial()
+
+with col2:
+    st.markdown(
+        """
+        <div style='border-left: 5px solid #ccc; height: 100%; position: absolute; left: 50%; top: 0;'></div>
+        """,
+        unsafe_allow_html=True
+    )
+
 
 with col3:
     st.header("Model input")
@@ -171,7 +180,7 @@ st.markdown("<br>", unsafe_allow_html=True)
 
 st.markdown("""
     <div style="font-size: 14px; font-weight: normal; color: #555;">
-        If you want to see exactly what happens in each layer of the model after you draw the image, check out this interactive app:
+        The old version of this app (more detailed  adversarial attack) is available at:
         <a href="https://applepear.streamlit.app" target="_blank" style="color: #1f77b4; text-decoration: none; font-weight: bold;">applepear.streamlit.app</a>
     </div>
 """, unsafe_allow_html=True)

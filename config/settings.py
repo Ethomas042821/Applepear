@@ -50,3 +50,16 @@ layer_info = {
         """
     }
 }
+
+LAYER_DESCRIPTIONS_ADVERSARIAL = {
+    "conv2d": "First convolutional layer to detect basic edges and patterns.",
+    "max_pooling2d": "First pooling layer to reduce dimensionality and retain important features.",
+    "conv2d_1": "Second convolutional layer that captures more complex features.",
+    "max_pooling2d_1": "Second pooling layer to further reduce dimensionality.",
+    "conv2d_2": "Third convolutional layer that identifies advanced patterns.",
+    "max_pooling2d_2": "Third pooling layer to simplify the feature maps.",
+    "flatten": "Flattens the convolutional output to a 1D vector.",
+    "dense": "Fully connected layer that integrates extracted features.",
+    "dense_1": "Final output layer that classifies the input into categories.",
+    # Add more layers as needed
+}
