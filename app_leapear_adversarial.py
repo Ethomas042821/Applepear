@@ -145,7 +145,7 @@ with col5:
                     # Add slider to control adversarial noise
                 
 
-            page_layout.adversarial_column_prediction(model, adversarial)
+            page_layout.adversarial_column_prediction(model, np.array(adversarial))
 
             # # Original prediction display
             # st.markdown(f"**Original Prediction:** {class_names[label]} ({confidence * 100:.2f}%)")
