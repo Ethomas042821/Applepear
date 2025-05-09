@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from config import settings
 import src
 
-def visualise_activations_adversarial(activations, model,img_array, num_columns=8):
+def visualise_activations_adversarial(activations, model,img_array,selected_layer_name, num_columns=8):
     # Get the layer names from the model, excluding the input layer (if any)
     layer_names = [layer.name for layer in model.layers if 'input' not in layer.name]
 
@@ -13,7 +13,7 @@ def visualise_activations_adversarial(activations, model,img_array, num_columns=
     # Loop through the activations and layer names to display the results
     for i, (layer_name, layer_activation) in enumerate(zip(layer_names, activations)):
         # Get the step and description for the current layer
-        if layer_name == "conv2d_2":
+        if layer_name == selected_layer_name:
             if layer_name in settings.layer_info:
                 step = settings.layer_info[layer_name]["step"]
                 description = settings.layer_info[layer_name]["description"]
@@ -50,3 +50,5 @@ def visualise_activations_adversarial(activations, model,img_array, num_columns=
                 ax.imshow(layer_activation[0, :].reshape(1, -1), cmap='viridis', aspect='auto')
                 ax.axis('off')  # Turn off axes
                 st.pyplot(fig)
+                if layer_name == 'dense':#the last layer before uotput
+                    src.visualise_activations_and_weights(st.session_state.model, activations, img_array)

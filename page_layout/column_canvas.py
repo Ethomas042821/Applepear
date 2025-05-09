@@ -19,8 +19,8 @@ def column_canvas():
 
 def column_canvas_adversarial(): 
     st.header("Draw Here")
-    st.write("(Sketch of an apple or a pear)") 
-    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.latex(r"x")
+    st.markdown("<br>", unsafe_allow_html=True)
 
     canvas_result = st_canvas(
         fill_color="white",  # Set the background color
@@ -32,5 +32,7 @@ def column_canvas_adversarial():
         drawing_mode="freedraw",  # Drawing mode
         key="canvas",  # Key to access the canvas state
     )
+
+
     return canvas_result
 

@@ -64,14 +64,15 @@ with st.expander("How does it work?"):
     """)
 
 # Define the layout with two columns
-col1, col2, col3,col4,col5 = st.columns([0.3,0.05, 0.3, 0.05, 0.3])
+col1, col2, col3,col4,col5 = st.columns([0.3,0.01, 0.34, 0.08, 0.27])
 
 # Left column - drawing canvas and adversarial image
 with col1:
     canvas_result = page_layout.column_canvas_adversarial()
 
 with col3:
-    st.header("Model input:")
+    st.header("Model input")
+    st.latex(r"x_{\text{adv}} = x + \textcolor{RoyalBlue}{\epsilon} \cdot \text{sign}(\nabla_x J(\theta, x, y))")
 
     st.markdown("""
     <style>
@@ -98,7 +99,7 @@ with col3:
 
 # Right column - display the result
 with col5:
-    st.header("I think this is...")
+    st.header("Prediction")
     
     st.markdown("<br>", unsafe_allow_html=True)
     # Check if the canvas is completely white (i.e., no drawing made)
@@ -130,7 +131,6 @@ with col5:
 
 
             with col3:
-                st.markdown("<br>", unsafe_allow_html=True)
                 # Display adversarial image
                 st.image(adversarial.numpy(), use_container_width=False,width = 100)
                     # Add slider to control adversarial noise
@@ -147,8 +147,8 @@ with col5:
         except Exception as e:
             st.error(f"Error processing the drawing: {e}")
 
-with st.expander("Hint"):
-    st.write("Smaller apples and pears are easier to attack. Try drawing a small one!")
+# with st.expander("Hint"):
+#     st.write("Smaller apples and pears are easier to attack. Try drawing a small one!")
 
 # Check if drawing was made before attempting predictions
 if np.all(canvas_result.image_data == 255):  # Entire canvas is white
@@ -156,14 +156,16 @@ if np.all(canvas_result.image_data == 255):  # Entire canvas is white
 else:
     
     try:
-        saliency_map = src.compute_saliency_map(model, adversarial, label)
-        st.image(saliency_map, caption="Saliency Map", use_column_width=True, clamp=True)
-    except Exception as e:
-        st.error(f"Failed to compute saliency map: {e}")
-    try:
         page_layout.bottom_activations_adversarial(model, adversarial)
     except Exception as e:
         st.error(f"Error during gradcam and activations display: {e}")
+
+    # try:
+    #     saliency_map = src.compute_saliency_map(model, adversarial, label_adv)
+    #     st.image(saliency_map, caption="Saliency Map", use_column_width=True, clamp=True)
+    # except Exception as e:
+    #     st.error(f"Failed to compute saliency map: {e}")
+
 
 st.markdown("<br>", unsafe_allow_html=True)
 
