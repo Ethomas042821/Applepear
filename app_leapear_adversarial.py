@@ -130,11 +130,11 @@ with col5:
             perturbations = src.create_adversarial_pattern(model, img_array, [label])
 
             # Apply adversarial noise
-            adversarial = img_array + epsilon * perturbations
+            adversarial = np.array(img_array + epsilon * perturbations)
             adversarial = tf.clip_by_value(adversarial, 0, 1)
 
             # Predict again on adversarial image
-            pred_adv = model.predict(adversarial)
+            pred_adv = model.predict(np.array(adversarial))
             label_adv = np.argmax(pred_adv)
             confidence_adv = np.max(pred_adv)
 
