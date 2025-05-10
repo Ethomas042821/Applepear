@@ -16,11 +16,28 @@ def bottom_activations_adversarial(model, img_array):
     default_layer = 'dense'
     default_index = layer_names.index(default_layer) if default_layer in layer_names else 0
 
+ 
     selected_layer_name = st.selectbox(
         "Select layer to visualize:", 
         layer_names, 
         index=default_index
     )
+
+    # Define the architecture
+    architecture = [
+        "conv2d", "max_pooling2d", "conv2d_1", "max_pooling2d_1",
+        "conv2d_2", "flatten", "dense", "dense_1"
+    ]
+
+    # Highlight the selected layer and grey out the rest
+    architecture_display = " → ".join(
+        [
+            f"<b>{layer}</b>" if layer == selected_layer_name 
+            else f"<span style='color:gray'>{layer}</span>" 
+            for layer in architecture
+        ]
+    )
+    st.markdown(architecture_display, unsafe_allow_html=True)
 
     src.visualise_activations_adversarial(activations,activation_model, img_array, selected_layer_name)
         # Show description from the config dictionary

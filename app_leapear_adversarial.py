@@ -37,8 +37,8 @@ if 'model' not in st.session_state:
 model = st.session_state.model
 
 # Print all layer names in the model for debugging or informational purposes
-# for layer in model.layers:
-#     print(layer.name)
+for layer in model.layers:
+    print(layer.name)
 
 st.write("What makes an apple an apple and a pear a pear? I used to believe it was based on 240,514 parameters...")
 st.write("... But maybe its just a few additional pixels after all. Let's find out!")
@@ -77,7 +77,6 @@ with col2:
         """,
         unsafe_allow_html=True
     )
-
 
 with col3:
     st.header("Model input")
@@ -120,61 +119,36 @@ with col5:
             # Get preprocessed input and resized image
             img_array, img_resized = page_layout.just_retrieve_image(canvas_result)
 
-            # # Make prediction on original image
-            pred = model.predict(img_array)
-            label = np.argmax(pred)
-            confidence = np.max(pred)
+            # Generate perturbations
+            perturbations = src.create_adversarial_pattern(model, img_array)
 
-            class_names = ['Apple', 'Pear']  # Adjust to match your model
-            # Generate adversarial pattern
-            perturbations = src.create_adversarial_pattern(model, img_array, [label])
-
-            # Apply adversarial noise
-            adversarial = np.array(img_array + epsilon * perturbations)
+            # Apply perturbations = get adversarial image
+            adversarial = img_array + epsilon * perturbations
             adversarial = tf.clip_by_value(adversarial, 0, 1)
-
-            # Predict again on adversarial image
-            pred_adv = model.predict(np.array(adversarial))
-            label_adv = np.argmax(pred_adv)
-            confidence_adv = np.max(pred_adv)
-
 
             with col3:
                 # Display adversarial image
                 st.image(adversarial.numpy(), use_container_width=False,width = 100)
-                    # Add slider to control adversarial noise
-                
 
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
 
-            # # Original prediction display
-            # st.markdown(f"**Original Prediction:** {class_names[label]} ({confidence * 100:.2f}%)")
-
-            # # Adversarial prediction display
-            # st.markdown(f"**Adversarial Prediction:** {class_names[label_adv]} ({confidence_adv * 100:.2f}%)")
-
         except Exception as e:
             st.error(f"Error processing the drawing: {e}")
-
-# with st.expander("Hint"):
-#     st.write("Smaller apples and pears are easier to attack. Try drawing a small one!")
 
 # Check if drawing was made before attempting predictions
 if np.all(canvas_result.image_data == 255):  # Entire canvas is white
     st.warning("Draw on canvas first!")
 else:
-    
     try:
         page_layout.bottom_activations_adversarial(model, adversarial)
     except Exception as e:
-        st.error(f"Error during gradcam and activations display: {e}")
+        st.error(f"Error during activations display: {e}")
 
     # try:
     #     saliency_map = src.compute_saliency_map(model, adversarial, label_adv)
     #     st.image(saliency_map, caption="Saliency Map", use_column_width=True, clamp=True)
     # except Exception as e:
     #     st.error(f"Failed to compute saliency map: {e}")
-
 
 st.markdown("<br>", unsafe_allow_html=True)
 
