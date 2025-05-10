@@ -16,7 +16,10 @@ def bottom_activations_adversarial(model, img_array):
     default_layer = 'dense'
     default_index = layer_names.index(default_layer) if default_layer in layer_names else 0
 
- 
+    st.markdown("Model layers:")
+    # Placeholder for the architecture display
+    architecture_placeholder = st.empty()
+
     selected_layer_name = st.selectbox(
         "Select layer to visualize:", 
         layer_names, 
@@ -37,10 +40,13 @@ def bottom_activations_adversarial(model, img_array):
             for layer in architecture
         ]
     )
-    st.markdown(architecture_display, unsafe_allow_html=True)
+    architecture_placeholder.markdown(architecture_display, unsafe_allow_html=True)
 
     src.visualise_activations_adversarial(activations,activation_model, img_array, selected_layer_name)
-        # Show description from the config dictionary
+
+
+
+    # Show description from the config dictionary
     with st.expander("Layer Description"):
         description = settings.LAYER_DESCRIPTIONS_ADVERSARIAL.get(selected_layer_name, "No description available.")
         st.write(f"**{selected_layer_name}**: {description}")

@@ -52,4 +52,5 @@ def visualise_activations_adversarial(activations, model,img_array,selected_laye
                 st.pyplot(fig)
                 if layer_name == 'dense':#the last layer before uotput
                             if st.checkbox("Show detailed dense layer plot", value = False):
-                                src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
+                                # src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
+                                src.plot_contribution_heatmap(st.session_state.model, activations)

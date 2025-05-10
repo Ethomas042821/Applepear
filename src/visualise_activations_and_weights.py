@@ -24,7 +24,7 @@ def visualise_activations_and_weights(model, activations, img_array, top_k=5):
     # Plot activations on the right axis (ax1)
     ax1.bar(range(top_k), top_k_activations, color=plt.cm.viridis(top_k_activations / max(top_k_activations)), label="Top k Activations")
     ax1.set_ylabel("Activation Value", color='black')
-    ax1.set_xlabel("Neurons (Top k)")
+    ax1.set_xlabel("Neurons (Top 5)")
     ax1.set_title(f"Top {top_k} Activations and Weights")
     ax1.tick_params(axis='y', labelcolor='black')
 

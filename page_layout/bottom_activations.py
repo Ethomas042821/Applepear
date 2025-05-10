@@ -23,7 +23,7 @@ def bottom_activations(model, img_array):
     # st.write("Why are broad regions highlighted instead of just the parts of the lines in the sketch? Let me show you how I process the image to explain:")
     
     # Visualize activations for each layer in Streamlit
-    st.write("To start, what I see isn't exactly a sketch—it's a set of numbers representing grayscale pixels between 0 and 1. My algorithm processes these numbers step-by-step through different layers to detect key patterns (features). Let me walk you through how I analyze the sketch at each stage.")
+    st.write("To start, what I see isn't exactly a sketch—it's a set of numbers representing grayscale pixels between 0 and 1. My algorithm processes these numbers step-by-step through different layers to detect key patterns (features). Let me walk you through how I analyze the sketch at each stage. (This will be a high-level overview, and many details are skipped for simplicity.)")
     
     # Define a new model that outputs the activations of each layer
     layer_outputs = [layer.output for layer in st.session_state.model.layers]
