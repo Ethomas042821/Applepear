@@ -6,3 +6,4 @@ opencv-python-headless
 tensorflow
 streamlit-drawable-canvas
 pyarrow
+seaborn
