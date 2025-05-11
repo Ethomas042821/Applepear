@@ -5,9 +5,10 @@ from tensorflow.keras.models import load_model
 from PIL import Image
 import page_layout
 import src  # Assuming src is a module in the same directory
+import matplotlib.pyplot as plt
 
-import sys
-print(sys.executable)
+# import sys
+# print(sys.executable)
 
 # Display TensorFlow version for informational purposes
 # st.write("TensorFlow version: ", tf.__version__)
@@ -120,15 +121,26 @@ with col5:
             img_array, img_resized = page_layout.just_retrieve_image(canvas_result)
 
             # Generate perturbations
-            perturbations = src.create_adversarial_pattern(model, img_array)
+            gradient_signum = src.create_adversarial_pattern(model, img_array)
 
             # Apply perturbations = get adversarial image
-            adversarial = img_array + epsilon * perturbations
+            adversarial = img_array + epsilon * gradient_signum
             adversarial = tf.clip_by_value(adversarial, 0, 1)
 
             with col3:
+                
+                # # Create the figure
+                # fig, ax = plt.subplots(figsize=(4, 4))
+                # cax = ax.imshow(gradient_signum.numpy().squeeze(), cmap='PRGn', interpolation='nearest')
+                # ax.set_title(r"Adversarial noise direction: $\text{sign}(\nabla_x J(\theta, x, y))$")
+                # ax.axis('off')
+                # fig.colorbar(cax, ax=ax, shrink=0.8)
+                # # Display the matplotlib figure in Streamlit
+                # st.pyplot(fig)
+
                 # Display adversarial image
-                st.image(adversarial.numpy(), use_container_width=False,width = 100)
+                st.image(adversarial.numpy(), use_container_width=True,width = 100)
+
 
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
 

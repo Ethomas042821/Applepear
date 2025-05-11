@@ -16,7 +16,7 @@ def bottom_activations_adversarial(model, img_array):
     default_layer = 'dense'
     default_index = layer_names.index(default_layer) if default_layer in layer_names else 0
 
-    st.markdown("Model layers:")
+    st.subheader("Inside model layers:")
     # Placeholder for the architecture display
     architecture_placeholder = st.empty()
 
@@ -42,6 +42,8 @@ def bottom_activations_adversarial(model, img_array):
     )
     architecture_placeholder.markdown(architecture_display, unsafe_allow_html=True)
 
+    # Show the selected layer's activations
+    st.markdown(f"Activations for layer: {selected_layer_name}")
     src.visualise_activations_adversarial(activations,activation_model, img_array, selected_layer_name)
 
 
