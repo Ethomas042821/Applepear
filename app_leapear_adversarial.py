@@ -53,7 +53,7 @@ with st.expander("How does it work?"):
     """)
 
     st.latex(r"""
-    x_{\text{adv}} = x + \textcolor{blue}{\epsilon} \cdot \text{sign}(\nabla_x J(\theta, x, y)),
+    x_{\text{adv}} = x + \textcolor{RoyalBlue}{\epsilon} \cdot \text{sign}(\nabla_x J(\theta, x, y)),
     """)
 
     st.write("""
@@ -65,7 +65,7 @@ with st.expander("How does it work?"):
     """)
 
 # Define the layout with two columns
-col1, col2, col3,col4,col5 = st.columns([0.3,0.01, 0.34, 0.08, 0.27])
+col1, col2, col3,col4,col5 = st.columns([0.3,0.01, 0.34, 0.05, 0.3])
 
 # Left column - drawing canvas and adversarial image
 with col1:
@@ -92,7 +92,7 @@ with col3:
 with col5:
     st.header("Prediction")
     
-    st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("<br><br>", unsafe_allow_html=True)
     # Check if the canvas is completely white (i.e., no drawing made)
     if np.all(canvas_result.image_data == 255):  # Entire canvas is white
         st.warning("Can't wait to see your drawing!")

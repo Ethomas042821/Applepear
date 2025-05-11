@@ -68,19 +68,19 @@ def plot_contribution_heatmap(model, activations):
         ax=ax
     )
 
-    ax.set_title(f"Weight*Activation Heatmap\n"
-                 f"Logit = Weighted Sum + Bias\n"
-                 f"Logit (Apple) = {logits_apple:.2f} | "
-                 f"Logit (Pear) = {logits_pear:.2f}",
-                fontsize=9)
+    ax.set_title(r"$\bf{Weight \times Activation \ Heatmap}$" "\n"
+             r"$\mathrm{Logit}_{\mathrm{class}} = \sum_{\mathrm{n}} (weight_{\mathrm{n,class}} \cdot activation_{\mathrm{n}}) + bias_{\mathrm{class}}$" "\n"
+             fr"$\mathrm{{Logit}}_{{\mathrm{{apple}}}} = {logits_apple:.2f} \quad|\quad "
+             fr"\mathrm{{Logit}}_{{\mathrm{{pear}}}} = {logits_pear:.2f}$",
+             fontsize=9)
     
     # ax.text(0.98, 0.90, f"Bias (Apple): {biases[0]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
     # ax.text(0.98, 0.79, f"Bias (Pear): {biases[1]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
     # ax.text(0.80, 0.90, f"Weighted Sum (Apple): {weighted_sum_apple:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
     # ax.text(0.80, 0.79, f"Weighted Sum (Pear): {weighted_sum_pear:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
 
-    ax.set_xlabel("Dense(128) Neurons", fontsize=8)
-    ax.set_ylabel("Output Class",fontsize=8)
+    ax.set_xlabel("Dense Layer Neurons (n= 1 ... 128)", fontsize=8)
+    ax.set_ylabel("Class",fontsize=8)
     # ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right", fontsize=4)
     ax.set_xticklabels([])
     ax.set_yticklabels(ax.get_yticklabels(), fontsize=8)
