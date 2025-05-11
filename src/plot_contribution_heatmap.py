@@ -56,27 +56,37 @@ def plot_contribution_heatmap(model, activations):
     norm_contributions = norm_contributions.T  # Now shape is (2, 128)
 
     # Create heatmap
-    fig, ax = plt.subplots(figsize=(10, 4))
+    fig, ax = plt.subplots(figsize=(10, 3))
 
-    sns.heatmap(
+    heatmap = sns.heatmap(
         norm_contributions,
         cmap="coolwarm",
         center=0,
-        xticklabels=[f"N{i}" for i in range(contributions.shape[0])],
+        # xticklabels=[f"N{i}" for i in range(contributions.shape[0])],
+        xticklabels=True,  # still generate ticks
         yticklabels=["Apple", "Pear"],
         ax=ax
     )
 
-    ax.set_title(f"Weight*activation Heatmap (Transposed Axes)\n"
-                 f"Logit (Apple) = Sum + Bias = {logits_apple:.2f} | "
-                 f"Logit (Pear) = Sum + Bias = {logits_pear:.2f}")
+    ax.set_title(f"Weight*Activation Heatmap\n"
+                 f"Logit = Weighted Sum + Bias\n"
+                 f"Logit (Apple) = {logits_apple:.2f} | "
+                 f"Logit (Pear) = {logits_pear:.2f}",
+                fontsize=9)
     
-    ax.text(0.99, 0.90, f"Bias (Apple): {biases[0]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=9, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
-    ax.text(0.99, 0.85, f"Bias (Pear): {biases[1]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=9, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
-    ax.text(0.70, 0.80, f"Weighted Sum (Apple): {weighted_sum_apple:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=9, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
-    ax.text(0.70, 0.75, f"Weighted Sum (Pear): {weighted_sum_pear:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=9, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
+    # ax.text(0.98, 0.90, f"Bias (Apple): {biases[0]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
+    # ax.text(0.98, 0.79, f"Bias (Pear): {biases[1]:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
+    # ax.text(0.80, 0.90, f"Weighted Sum (Apple): {weighted_sum_apple:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
+    # ax.text(0.80, 0.79, f"Weighted Sum (Pear): {weighted_sum_pear:.2f}", transform=ax.transAxes, ha='right', va='top', fontsize=7, bbox=dict(facecolor='white', boxstyle='round,pad=0.5'))
 
-    ax.set_xlabel("Dense(128) Neurons")
-    ax.set_ylabel("Output Class")
+    ax.set_xlabel("Dense(128) Neurons", fontsize=8)
+    ax.set_ylabel("Output Class",fontsize=8)
+    # ax.set_xticklabels(ax.get_xticklabels(), rotation=45, ha="right", fontsize=4)
+    ax.set_xticklabels([])
+    ax.set_yticklabels(ax.get_yticklabels(), fontsize=8)
+    # Resize the colorbar tick labels
+    # Adjust colorbar tick label size
+    heatmap.collections[0].colorbar.ax.tick_params(labelsize=8) 
+
 
     st.pyplot(fig)

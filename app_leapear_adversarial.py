@@ -38,8 +38,8 @@ if 'model' not in st.session_state:
 model = st.session_state.model
 
 # Print all layer names in the model for debugging or informational purposes
-for layer in model.layers:
-    print(layer.name)
+# for layer in model.layers:
+#     print(layer.name)
 
 st.write("What makes an apple an apple and a pear a pear? I used to believe it was based on 240,514 parameters...")
 st.write("... But maybe its just a few additional pixels after all. Let's find out!")
@@ -71,14 +71,6 @@ col1, col2, col3,col4,col5 = st.columns([0.3,0.01, 0.34, 0.08, 0.27])
 with col1:
     canvas_result = page_layout.column_canvas_adversarial()
 
-with col2:
-    st.markdown(
-        """
-        <div style='border-left: 5px solid #ccc; height: 100%; position: absolute; left: 50%; top: 0;'></div>
-        """,
-        unsafe_allow_html=True
-    )
-
 with col3:
     st.header("Model input")
     st.latex(r"x_{\text{adv}} = x + \textcolor{RoyalBlue}{\epsilon} \cdot \text{sign}(\nabla_x J(\theta, x, y))")
@@ -89,22 +81,12 @@ with col3:
     .stSlider > div[data-baseweb="slider"] [role="slider"] {
         background-color: #1f77b4 !important;  /* Blue thumb */
         border: 2px solid #1f77b4 !important;  /* Optional: border matching the thumb */
-    }
-
-    /* Style the value above the thumb to be blue */
-    .stSlider > div[data-baseweb="slider"] div[aria-valuenow] {
-        color: #1f77b4 !important;  /* Blue value */
-    }
-
-    /* Style the line that shows the slider progress (the filled part) */
-    .stSlider > div[data-baseweb="slider"] div[aria-valuenow] + div {
-        background-color: #1f77b4 !important;  /* Blue progress line */
-    }
-
+    }        
     </style>
     """, unsafe_allow_html=True)
 
-    epsilon = st.slider(":blue[Adversarial Noise Level ($\epsilon$)]", 0.0, 0.2, 0.0, 0.005)
+
+    epsilon = st.slider(":blue[Adversarial Noise Level ($\epsilon$)]", 0.00, 0.20, 0.00, 0.01, help="Adversarial noise level. Higher values mean more noise, which can lead to misclassification.")
 
 # Right column - display the result
 with col5:
@@ -128,19 +110,9 @@ with col5:
             adversarial = tf.clip_by_value(adversarial, 0, 1)
 
             with col3:
-                
-                # # Create the figure
-                # fig, ax = plt.subplots(figsize=(4, 4))
-                # cax = ax.imshow(gradient_signum.numpy().squeeze(), cmap='PRGn', interpolation='nearest')
-                # ax.set_title(r"Adversarial noise direction: $\text{sign}(\nabla_x J(\theta, x, y))$")
-                # ax.axis('off')
-                # fig.colorbar(cax, ax=ax, shrink=0.8)
-                # # Display the matplotlib figure in Streamlit
-                # st.pyplot(fig)
-
+    
                 # Display adversarial image
                 st.image(adversarial.numpy(), use_container_width=True,width = 100)
-
 
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
 
@@ -155,18 +127,3 @@ else:
         page_layout.bottom_activations_adversarial(model, adversarial)
     except Exception as e:
         st.error(f"Error during activations display: {e}")
-
-    # try:
-    #     saliency_map = src.compute_saliency_map(model, adversarial, label_adv)
-    #     st.image(saliency_map, caption="Saliency Map", use_column_width=True, clamp=True)
-    # except Exception as e:
-    #     st.error(f"Failed to compute saliency map: {e}")
-
-st.markdown("<br>", unsafe_allow_html=True)
-
-st.markdown("""
-    <div style="font-size: 14px; font-weight: normal; color: #555;">
-        The old version of this app (more detailed  adversarial attack) is available at:
-        <a href="https://applepear.streamlit.app" target="_blank" style="color: #1f77b4; text-decoration: none; font-weight: bold;">applepear.streamlit.app</a>
-    </div>
-""", unsafe_allow_html=True)

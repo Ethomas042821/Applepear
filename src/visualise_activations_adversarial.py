@@ -51,6 +51,6 @@ def visualise_activations_adversarial(activations, model,img_array,selected_laye
                 ax.axis('off')  # Turn off axes
                 st.pyplot(fig)
                 if layer_name == 'dense':#the last layer before uotput
-                            if st.checkbox("Show detailed dense layer plot", value = False):
+                            if st.checkbox("Show heatmap of neuron contribution to apple/pear class", value = False):
                                 # src.visualise_activations_and_weights(st.session_state.model, activations, img_array)
                                 src.plot_contribution_heatmap(st.session_state.model, activations)
