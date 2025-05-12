@@ -7,7 +7,7 @@ def create_adversarial_pattern(model, input_image):
     print("before model predict")
     pred = model.predict(np.array(input_image))
     print("after model predict")
-    input_label = [np.argmax(pred)]
+    input_label = tf.convert_to_tensor([np.argmax(pred)], dtype=tf.int32)
     print("after input label")
 
     input_image = tf.convert_to_tensor(np.array(input_image), dtype=tf.float32)
