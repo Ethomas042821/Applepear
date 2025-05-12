@@ -10,7 +10,7 @@ def create_adversarial_pattern(model, input_image):
     input_label = [np.argmax(pred)]
     print("after input label")
 
-    input_image = tf.convert_to_tensor(input_image, dtype=tf.float32)
+    input_image = tf.convert_to_tensor(np.array(input_image), dtype=tf.float32)
     print("after convert to tensorn")
 
     # Use GradientTape to record operations for automatic differentiation
