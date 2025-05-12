@@ -101,10 +101,10 @@ with col5:
 
             # Get preprocessed input and resized image
             img_array, img_resized = page_layout.just_retrieve_image(canvas_result)
-
+            print("before adv pattern")
             # Generate perturbations
             gradient_signum = src.create_adversarial_pattern(model, img_array)
-
+            print("after adv pattern")
             # Apply perturbations = get adversarial image
             adversarial = img_array + epsilon * gradient_signum
             adversarial = tf.clip_by_value(adversarial, 0, 1)
@@ -113,8 +113,9 @@ with col5:
     
                 # Display adversarial image
                 st.image(adversarial.numpy(), use_container_width=True,width = 100)
-
+            print("before prediction")
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
+            print("after prediction")
 
         except Exception as e:
             st.error(f"Error processing the drawing: {e}")
