@@ -4,10 +4,14 @@ import numpy as np
 def create_adversarial_pattern(model, input_image):
     # Convert input to a tensor with float32 dtype and ensure it has gradient tracking
                 # # Make prediction on original image
+    print("before model predict")
     pred = model.predict(np.array(input_image))
+    print("after model predict")
     input_label = [np.argmax(pred)]
+    print("after input label")
 
     input_image = tf.convert_to_tensor(input_image, dtype=tf.float32)
+    print("after convert to tensorn")
 
     # Use GradientTape to record operations for automatic differentiation
     with tf.GradientTape() as tape:
