@@ -16,6 +16,7 @@ def create_adversarial_pattern(model, input_image):
     # Use GradientTape to record operations for automatic differentiation
     with tf.GradientTape() as tape:
         tape.watch(input_image)  # Explicitly watch the input
+        print("after input image")
         prediction = model(input_image)
         loss = tf.keras.losses.sparse_categorical_crossentropy(input_label, prediction)
         print("after loss")
