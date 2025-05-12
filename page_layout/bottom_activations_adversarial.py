@@ -46,9 +46,7 @@ def bottom_activations_adversarial(model, img_array):
     st.markdown(f"**Activations for layer: {selected_layer_name}**")
     src.visualise_activations_adversarial(activations,activation_model, img_array, selected_layer_name)
 
-
-
-    # Show description from the config dictionary
-    with st.expander("Layer Description"):
-        description = settings.LAYER_DESCRIPTIONS_ADVERSARIAL.get(selected_layer_name, "No description available.")
-        st.write(f"**{selected_layer_name}**: {description}")
+    # # Show description from the config dictionary
+    # with st.expander("Layer Description"):
+    #     description = settings.LAYER_DESCRIPTIONS_ADVERSARIAL.get(selected_layer_name, "No description available.")
+    #     st.write(f"**{selected_layer_name}**: {description}")

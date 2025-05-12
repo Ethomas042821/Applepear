@@ -7,12 +7,6 @@ import page_layout
 import src  # Assuming src is a module in the same directory
 import matplotlib.pyplot as plt
 
-# import sys
-# print(sys.executable)
-
-# Display TensorFlow version for informational purposes
-# st.write("TensorFlow version: ", tf.__version__)
-
 st.title("The :green[pear]fect :red[apple] under :blue[attack]!")
 
 # Define a function to load the model and apply caching
@@ -37,19 +31,16 @@ if 'model' not in st.session_state:
 # Access the model from session state
 model = st.session_state.model
 
-# Print all layer names in the model for debugging or informational purposes
-# for layer in model.layers:
-#     print(layer.name)
-
-st.write("What makes an apple an apple and a pear a pear? I used to believe it was based on 240,514 parameters...")
-st.write("... But maybe its just a few additional pixels after all. Let's find out!")
+st.write("What makes an apple an apple and a pear a pear?")
+st.write("I used to believe it was based on my 240.514 parameters...")
+st.write("...But maybe its just a few additional pixels after all. Let's find out!")
 st.write("Try drawing your own sketch below. Then, use the slider to add a touch of adversarial noise - and see if you can fool me.")
 
 with st.expander("How does it work?"):
     st.write("""
     I am a Convolutional Neural Network (CNN) trained to classify images of apples and pears. I use a deep learning model with multiple layers to extract features from the images and make predictions.
     
-    The adversarial attack used here is the **Fast Gradient Sign Method (FGSM)**. It's a simple technique to fool neural networks by adding a small amount of noise in the direction that maximally increases the model's loss.
+    The adversarial attack used here is the **Fast Gradient Sign Method (FGSM)**. It's a simple technique to fool neural networks by adding a small amount of carefully crafted noise (perturbation) in the direction that maximally increases the model's loss.
     """)
 
     st.latex(r"""
@@ -57,11 +48,12 @@ with st.expander("How does it work?"):
     """)
 
     st.write("""
-    where:
-    - $x$ is original input image  
-    - :blue[$\epsilon$ is a small scalar controlling the noise level] 
-    - $\\nabla_x$ J($\\theta$, x, y) is gradient of the loss with respect to the input  
-    - $x_{\\text{adv}}$ is adversarial image  
+    where:  
+    - $x$ is the original input image  
+    - :blue[$\\epsilon$ is a small scalar controlling the perturbation magnitude]  
+    - $\\nabla_x J(\\theta, x, y)$ is the gradient of the loss with respect to the input  
+    ($\\theta$ are the model parameters, and $y$ is the true label)  
+    - $x_{\\text{adv}}$ is the adversarial example  
     """)
 
 # Define the layout with two columns
@@ -85,7 +77,6 @@ with col3:
     </style>
     """, unsafe_allow_html=True)
 
-
     epsilon = st.slider(":blue[Adversarial Noise Level ($\epsilon$)]", 0.00, 0.20, 0.00, 0.01, help="Adversarial noise level. Higher values mean more noise, which can lead to misclassification.")
 
 # Right column - display the result
@@ -101,19 +92,16 @@ with col5:
 
             # Get preprocessed input and resized image
             img_array, img_resized = page_layout.just_retrieve_image(canvas_result)
-            print("before adv pattern")
             # Generate perturbations
             gradient_signum = src.create_adversarial_pattern(model, img_array)
-            print("after adv pattern")
             # Apply perturbations = get adversarial image
             adversarial = img_array + epsilon * gradient_signum
             adversarial = tf.clip_by_value(adversarial, 0, 1)
 
             with col3:
-    
                 # Display adversarial image
                 st.image(adversarial.numpy(),width = 100)
-            print("before prediction")
+
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
             print("after prediction")
 

@@ -61,5 +61,4 @@ LAYER_DESCRIPTIONS_ADVERSARIAL = {
     "flatten": "Flattens the convolutional output to a 1D vector.",
     "dense": "Fully connected layer that integrates extracted features.",
     "dense_1": "Final output layer that classifies the input into categories.",
-    # Add more layers as needed
 }
