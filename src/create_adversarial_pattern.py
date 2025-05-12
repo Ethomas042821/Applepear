@@ -4,7 +4,7 @@ import numpy as np
 def create_adversarial_pattern(model, input_image):
     # Convert input to a tensor with float32 dtype and ensure it has gradient tracking
                 # # Make prediction on original image
-    pred = model.predict(input_image)
+    pred = model.predict(np.array(input_image))
     input_label = [np.argmax(pred)]
 
     input_image = tf.convert_to_tensor(input_image, dtype=tf.float32)
