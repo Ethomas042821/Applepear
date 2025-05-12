@@ -112,7 +112,7 @@ with col5:
             with col3:
     
                 # Display adversarial image
-                st.image(adversarial.numpy(), use_container_width=True,width = 100)
+                st.image(adversarial.numpy(),width = 100)
             print("before prediction")
             page_layout.adversarial_column_prediction(model, np.array(adversarial))
             print("after prediction")
